@@ -1,11 +1,13 @@
-// 📌 URL de ton script Google Sheets
+// 📌 URL mise à jour pour Google Sheets
 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzNN7FfscqGRSL0znhN9JPnjl-ePuOiAU4OJOZtSqzjgc8c2rfltHBaG7pOl5Cln3Qyzg/exec";
 
+// 📌 Fonction pour récupérer les paramètres de l'URL
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
 
+// 📌 Récupérer l'ID du joueur depuis l'URL
 const playerID = getQueryParam("id");
 
 async function chargerFichePersonnage() {
@@ -57,7 +59,9 @@ async function sauvegarderPersonnage() {
     try {
         const response = await fetch(GOOGLE_SHEET_URL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json"
+            },
             body: JSON.stringify(personnage)
         });
 
@@ -69,6 +73,7 @@ async function sauvegarderPersonnage() {
     }
 }
 
+// 📌 Charger la fiche personnage au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
     chargerFichePersonnage();
 });
