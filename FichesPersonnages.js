@@ -1,5 +1,5 @@
 // 📌 URL de ton script Google Sheets
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyMzw1WTYmc2kXVZtGqVpA-DICoCTLR-mWYLEgqsHW9vMh93EElZ4kB3gT8uUmO_vS4ag/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzNN7FfscqGRSL0znhN9JPnjl-ePuOiAU4OJOZtSqzjgc8c2rfltHBaG7pOl5Cln3Qyzg/exec";
 
 document.addEventListener("DOMContentLoaded", async () => {
     let liste = document.getElementById("listePersonnages");
