@@ -1,5 +1,5 @@
-// 📌 URL mise à jour pour Google Sheets
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzNN7FfscqGRSL0znhN9JPnjl-ePuOiAU4OJOZtSqzjgc8c2rfltHBaG7pOl5Cln3Qyzg/exec";
+// 📌 Utilisation de `corsproxy.io` pour contourner CORS sur Google Apps Script
+const GOOGLE_SHEET_URL = "https://corsproxy.io/?https://script.google.com/macros/s/AKfycbzNN7FfscqGRSL0znhN9JPnjl-ePuOiAU4OJOZtSqzjgc8c2rfltHBaG7pOl5Cln3Qyzg/exec";
 
 // 📌 Fonction pour récupérer les paramètres de l'URL
 function getQueryParam(param) {
@@ -10,6 +10,7 @@ function getQueryParam(param) {
 // 📌 Récupérer l'ID du joueur depuis l'URL
 const playerID = getQueryParam("id");
 
+// 📌 Charger la fiche du personnage depuis Google Sheets
 async function chargerFichePersonnage() {
     if (!playerID) {
         alert("Aucun personnage sélectionné !");
@@ -42,6 +43,7 @@ async function chargerFichePersonnage() {
     }
 }
 
+// 📌 Sauvegarder les modifications du personnage dans Google Sheets
 async function sauvegarderPersonnage() {
     let personnage = {
         ID: playerID,
