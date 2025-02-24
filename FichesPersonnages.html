@@ -4,49 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiches des Personnages</title>
-
-    <!-- 🔹 Import Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-
-    <script>
-        console.log("🔄 Vérification : Firebase existe ?", typeof firebase !== "undefined");
-    
-        // 📌 Configuration Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
-            authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
-            projectId: "jeu-de-role-c2c3c",
-            storageBucket: "jeu-de-role-c2c3c.appspot.com",
-            messagingSenderId: "984167900465",
-            appId: "1:984167900465:web:2b643222efc877d62afc10",
-            measurementId: "G-8MQWWG8P8N"
-        };
-    
-        // 📌 Initialisation Firebase uniquement si non déjà chargé
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-            console.log("✅ Firebase correctement chargé !");
-        } else {
-            console.log("⚠ Firebase était déjà chargé !");
-        }
-    
-        // 📌 Création de la base Firestore
-        const db = firebase.firestore();
-    </script>
-    
-
-    <!-- 🔹 Chargement de FichesPersonnages.js après Firebase -->
-    <script src="FichesPersonnages.js" defer></script>
-
 </head>
-<body>
-    <h1>Fiches des Personnages</h1>
 
-    <div id="listePersonnages"></div>
+<body>
+    <h1>Liste des Personnages</h1>
+
+    <h3>Choisir un personnage :</h3>
+    <select id="playerSelect"></select>
+
+    <br><br>
+    <button onclick="chargerPersonnages()">Recharger la liste</button>
+    <button onclick="ouvrirFichePersonnage()">Ouvrir la fiche</button>
 
     <br><br>
     <button onclick="location.href='index.html'">Retour</button>
+
+    <script>
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyMzw1WTYmc2kXVZtGqVpA-DICoCTLR-mWYLEgqsHW9vMh93EElZ4kB3gT8uUmO_vS4ag/exec";
+
+        async function chargerPersonnages() {
+            try {
+                const response = await fetch(GOOGLE_SHEET_URL);
+                const personnages = await response.json();
+
+                console.log("📜 Personnages chargés :", personnages);
+
+                let select = document.getElementById("playerSelect");
+                select.innerHTML = "";
+
+                personnages.forEach(perso => {
+                    let option = document.createElement("option");
+                    option.value = perso.ID;
+                    option.textContent = perso.Nom;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error("❌ Erreur lors du chargement des personnages :", error);
+            }
+        }
+
+        function ouvrirFichePersonnage() {
+            let playerID = document.getElementById("playerSelect").value;
+            if (!playerID) {
+                alert("Sélectionnez un personnage !");
+                return;
+            }
+            location.href = `FichePersonnage.html?id=${playerID}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            chargerPersonnages();
+        });
+    </script>
 </body>
 </html>

@@ -1,56 +1,72 @@
-document.addEventListener("DOMContentLoaded", () => {
-    let select = document.getElementById("playerSelect");
-    select.innerHTML = ""; // Réinitialisation
+// 📌 URL de ton script Google Sheets
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyMzw1WTYmc2kXVZtGqVpA-DICoCTLR-mWYLEgqsHW9vMh93EElZ4kB3gT8uUmO_vS4ag/exec";
 
-    let joueurs = ["joueur1", "joueur2", "joueur3", "joueur4", "joueur5", "joueur6"];
+// 📌 Charger tous les personnages depuis Google Sheets
+async function chargerPersonnages() {
+    try {
+        const response = await fetch(GOOGLE_SHEET_URL);
+        const personnages = await response.json();
 
-    joueurs.forEach(joueurID => {
-        let personnage = JSON.parse(localStorage.getItem(joueurID));
-        let nom = personnage && personnage.nom ? personnage.nom : `Joueur ${joueurID.replace("joueur", "")}`;
+        console.log("📜 Personnages chargés :", personnages);
 
-        let option = document.createElement("option");
-        option.value = joueurID;
-        option.innerText = nom;
-        
-        select.appendChild(option);
-    });
-});
+        let select = document.getElementById("playerSelect");
+        select.innerHTML = "";
 
-function lancement_de() {
+        personnages.forEach(perso => {
+            let option = document.createElement("option");
+            option.value = perso.ID;
+            option.textContent = perso.Nom;
+            select.appendChild(option);
+        });
+    } catch (error) {
+        console.error("❌ Erreur lors du chargement des personnages :", error);
+    }
+}
+
+// 📌 Lancer un dé sur une caractéristique choisie
+async function lancerDe(caracteristique) {
+    let playerID = document.getElementById("playerSelect").value;
+    if (!playerID) {
+        alert("Sélectionnez un personnage !");
+        return;
+    }
+
+    try {
+        const response = await fetch(GOOGLE_SHEET_URL);
+        const personnages = await response.json();
+
+        let personnage = personnages.find(perso => perso.ID == playerID);
+        if (!personnage) {
+            alert("Personnage introuvable !");
+            return;
+        }
+
+        let stat = personnage[caracteristique];
+        let jet = lancementDe();
+        let verif = jet <= stat ? "Réussite" : "Échec";
+
+        document.getElementById("resultat").innerText = 
+            `Jet de ${caracteristique}: ${jet} // ${verif}`;
+    } catch (error) {
+        console.error("❌ Erreur lors du lancer de dé :", error);
+    }
+}
+
+// 📌 Fonction de tirage sécurisé (basé sur `crypto.getRandomValues`)
+function lancementDe() {
     const randomArray = new Uint32Array(1);
     crypto.getRandomValues(randomArray);
-
+    
     const randomNumber = randomArray[0] % 1000000;
 
     const thousands = Math.floor(randomNumber / 1000) % 10;
     const tens = Math.floor((randomNumber % 100) / 10);
-
     const result = (thousands === 0 && tens === 0) ? 100 : (thousands * 10 + tens);
 
     return result;
 }
 
-function lancerDe(caracteristique) {
-    let joueur = document.getElementById("playerSelect").value;
-
-    let personnage = JSON.parse(localStorage.getItem(joueur));
-
-    if (!personnage) {
-        document.getElementById("resultat").innerText = "Aucune donnée trouvée pour ce joueur.";
-        return;
-    }
-
-    let stat = personnage[caracteristique];
-    let jet = lancement_de();
-
-    let rep = (jet <= stat) ? "Réussite" : "Échec";
-    if (jet <= 10 || jet >= 90) {
-        rep = rep + " Critique";
-        if (jet == 1 || jet == 100){
-            rep = 'Super ' + rep;
-        }
-    }
-
-    document.getElementById("resultat").innerText = 
-        `Jet de ${caracteristique} : ${jet} (Stat : ${stat}) → ${rep}`;
-}
+// 📌 Charger automatiquement les personnages au chargement de la page
+document.addEventListener("DOMContentLoaded", () => {
+    chargerPersonnages();
+});

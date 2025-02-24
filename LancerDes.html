@@ -4,61 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lancer de Dés</title>
-
-    <!-- 🔹 Import Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-
-    <script>
-        console.log("🔄 Vérification : Firebase existe ?", typeof firebase !== "undefined");
-    
-        // 📌 Configuration Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
-            authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
-            projectId: "jeu-de-role-c2c3c",
-            storageBucket: "jeu-de-role-c2c3c.appspot.com",
-            messagingSenderId: "984167900465",
-            appId: "1:984167900465:web:2b643222efc877d62afc10",
-            measurementId: "G-8MQWWG8P8N"
-        };
-    
-        // 📌 Initialisation Firebase uniquement si non déjà chargé
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-            console.log("✅ Firebase correctement chargé !");
-        } else {
-            console.log("⚠ Firebase était déjà chargé !");
-        }
-    
-        // 📌 Création de la base Firestore
-        const db = firebase.firestore();
-    </script>
-    
-
-    <!-- 🔹 Chargement de LancerDes.js après Firebase -->
-    <script src="LancerDes.js" defer></script>
-
+    <link rel="stylesheet" href="StyleLancerDes.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1>Lancer de dés</h1>
+    <h1>Lancer de Dés</h1>
 
-        <label for="playerSelect">Choisir un joueur :</label>
-        <select id="playerSelect"></select>
+    <h3>Choisir un personnage :</h3>
+    <select id="playerSelect"></select>
 
-        <h2>Choisissez une caractéristique :</h2>
-        <button onclick="lancerDe('force')">Force</button>
-        <button onclick="lancerDe('dexterite')">Dextérité</button>
-        <button onclick="lancerDe('constitution')">Constitution</button>
-        <button onclick="lancerDe('intelligence')">Intelligence</button>
-        <button onclick="lancerDe('sagesse')">Sagesse</button>
-        <button onclick="lancerDe('charisme')">Charisme</button>
+    <h3>Statistique à tester :</h3>
+    <button onclick="lancerDe('Force')">Force</button>
+    <button onclick="lancerDe('Dextérité')">Dextérité</button>
+    <button onclick="lancerDe('Constitution')">Constitution</button>
+    <button onclick="lancerDe('Intelligence')">Intelligence</button>
+    <button onclick="lancerDe('Sagesse')">Sagesse</button>
+    <button onclick="lancerDe('Charisme')">Charisme</button>
 
-        <h3 id="resultat"></h3>
-        
-        <button onclick="location.href='index.html'">Retour</button>
-    </div>
+    <h3>Résultat :</h3>
+    <p id="resultat">Aucun jet effectué.</p>
+
+    <br><br>
+    <button onclick="location.href='index.html'">Retour</button>
+
+    <script src="LancerDes.js"></script>
 </body>
 </html>
