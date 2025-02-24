@@ -1,10 +1,16 @@
 // 📌 Vérification si Firebase est bien chargé
 if (typeof firebase === "undefined") {
-    console.error("❌ Firebase n'est PAS chargé !");
+    console.error("❌ Firebase n'est PAS défini !");
 } else {
     console.log("✅ Firebase est bien chargé !");
 }
 
+// 📌 Vérification si `db` est défini
+if (typeof db === "undefined") {
+    console.error("❌ La base de données (`db`) n'est pas définie !");
+}
+
+// 📌 Récupération du joueur depuis l'URL
 const params = new URLSearchParams(window.location.search);
 const joueurID = params.get("joueur");
 
@@ -13,9 +19,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     console.log("📌 Chargement des données pour :", joueurID);
 
-    // 📌 Vérifier que `db` est bien défini
+    // 📌 Vérifier que `db` est bien défini AVANT de l'utiliser
     if (typeof db === "undefined") {
-        console.error("❌ La base de données Firestore (`db`) n'est pas définie !");
+        console.error("❌ Firestore (`db`) n'est pas défini !");
         return;
     }
 

@@ -10,6 +10,9 @@
     <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"></script>
 
     <script>
+        // 📌 Vérification de Firebase avant initialisation
+        console.log("🔄 Vérification : Firebase existe ?", typeof firebase !== "undefined");
+
         // 📌 Configuration Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
@@ -21,14 +24,19 @@
             measurementId: "G-8MQWWG8P8N"
         };
 
-        // 📌 Initialisation Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        // 📌 Initialisation Firebase (uniquement si non déjà chargé)
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+            console.log("✅ Firebase correctement chargé !");
+        } else {
+            console.log("⚠ Firebase était déjà chargé !");
+        }
 
-        console.log("✅ Firebase chargé dans FichePersonnage.html !");
+        // 📌 Création de la base Firestore
+        const db = firebase.firestore();
     </script>
 
-    <!-- 🔹 Chargement de `FichePersonnage.js` APRÈS que Firebase soit défini -->
+    <!-- 🔹 Chargement de `FichePersonnage.js` APRÈS Firebase -->
     <script src="FichePersonnage.js" defer></script>
 
 </head>
