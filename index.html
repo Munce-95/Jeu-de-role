@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceuil</title>
+    <title>Accueil</title>
     <link rel="stylesheet" href="StyleAcceuil.css">
     <link rel="icon" href="">
 
-</head>
-<body>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    <!-- 📌 Import Firebase depuis le CDN (pas de "import" nécessaire) -->
+    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"></script>
+
+    <script>
+        // 📌 1. Configuration Firebase
         const firebaseConfig = {
-          apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
-          authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
-          projectId: "jeu-de-role-c2c3c",
-          storageBucket: "jeu-de-role-c2c3c.firebasestorage.app",
-          messagingSenderId: "984167900465",
-          appId: "1:984167900465:web:2b643222efc877d62afc10",
-          measurementId: "G-8MQWWG8P8N"
+            apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
+            authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
+            projectId: "jeu-de-role-c2c3c",
+            storageBucket: "jeu-de-role-c2c3c.appspot.com", // Correction ici
+            messagingSenderId: "984167900465",
+            appId: "1:984167900465:web:2b643222efc877d62afc10",
+            measurementId: "G-8MQWWG8P8N"
         };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
+
+        // 📌 2. Initialisation Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        console.log("✅ Firebase correctement chargé !");
+    </script>
+</head>
+
+<body>
     <div class="link-container">
         <h1>Bienvenue sur le Jeu de Rôle</h1>
         <button onclick="location.href='LancerDes.html'">Lancer des dés</button>

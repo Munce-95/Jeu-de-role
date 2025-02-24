@@ -1,6 +1,8 @@
-// 📌 Vérification si Firebase est bien chargé
+// 📌 Vérifie si Firebase est bien chargé
 if (!firebase.apps.length) {
-    console.error("Firebase n'est pas chargé !");
+    console.error("❌ Firebase n'est pas chargé !");
+} else {
+    console.log("✅ Firebase est bien chargé !");
 }
 
 // 📌 Récupération du joueur depuis l'URL
@@ -10,7 +12,7 @@ const joueurID = params.get("joueur");
 document.addEventListener("DOMContentLoaded", () => {
     if (!joueurID) return alert("Erreur : Aucun joueur sélectionné !");
 
-    // 📌 1. Charger les données depuis Firestore
+    // 📌 Charger les données depuis Firebase
     db.collection("personnages").doc(joueurID).get().then((doc) => {
         if (doc.exists) {
             let personnage = doc.data();
@@ -26,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             console.log("Aucune donnée trouvée !");
         }
-    }).catch(error => console.error("Erreur de chargement :", error));
+    }).catch(error => console.error("❌ Erreur de chargement :", error));
 });
 
 function sauvegarderPersonnage() {
@@ -49,12 +51,12 @@ function sauvegarderPersonnage() {
         charisme: Number(document.getElementById("charisme").value)
     };
 
-    console.log("Données envoyées à Firebase :", personnage);
+    console.log("✅ Données envoyées à Firebase :", personnage);
 
-    // 📌 2. Enregistrer les données sur Firestore
+    // 📌 Enregistrer les données sur Firebase
     db.collection("personnages").doc(joueurID).set(personnage).then(() => {
-        alert("Personnage sauvegardé !");
+        alert("✅ Personnage sauvegardé !");
     }).catch((error) => {
-        console.error("Erreur d'enregistrement :", error);
+        console.error("❌ Erreur d'enregistrement :", error);
     });
 }
