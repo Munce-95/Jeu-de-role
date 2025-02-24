@@ -1,5 +1,5 @@
 // 📌 URL de ton script Google Sheets
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzNN7FfscqGRSL0znhN9JPnjl-ePuOiAU4OJOZtSqzjgc8c2rfltHBaG7pOl5Cln3Qyzg/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyTjH0NGPhH2FNo9U8ci5nUOvBiulAtFxz3yqZWURhfl7qSu5OvXjUdSjoL43BagalHHA/exec";
 
 async function chargerPersonnages() {
     try {
