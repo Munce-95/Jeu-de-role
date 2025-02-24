@@ -1,7 +1,6 @@
 // 📌 URL de ton script Google Sheets
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyCAKz_s78tlcurnEfUMZr558a3qGkTo5RUxzJV1qhWJYDJcGJoVs3pg9X5lVTVsdS-ig/exec";
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyMzw1WTYmc2kXVZtGqVpA-DICoCTLR-mWYLEgqsHW9vMh93EElZ4kB3gT8uUmO_vS4ag/exec";
 
-// 📌 Charger tous les personnages depuis Google Sheets
 async function chargerPersonnages() {
     try {
         const response = await fetch(GOOGLE_SHEET_URL);
@@ -23,7 +22,6 @@ async function chargerPersonnages() {
     }
 }
 
-// 📌 Lancer un dé sur une caractéristique choisie
 async function lancerDe(caracteristique) {
     let playerID = document.getElementById("playerSelect").value;
     if (!playerID) {
@@ -52,7 +50,6 @@ async function lancerDe(caracteristique) {
     }
 }
 
-// 📌 Fonction de tirage sécurisé (basé sur `crypto.getRandomValues`)
 function lancementDe() {
     const randomArray = new Uint32Array(1);
     crypto.getRandomValues(randomArray);
@@ -66,7 +63,6 @@ function lancementDe() {
     return result;
 }
 
-// 📌 Charger automatiquement les personnages au chargement de la page
 document.addEventListener("DOMContentLoaded", () => {
     chargerPersonnages();
 });

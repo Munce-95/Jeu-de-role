@@ -1,4 +1,5 @@
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyCAKz_s78tlcurnEfUMZr558a3qGkTo5RUxzJV1qhWJYDJcGJoVs3pg9X5lVTVsdS-ig/exec";
+// 📌 URL de ton script Google Sheets
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyMzw1WTYmc2kXVZtGqVpA-DICoCTLR-mWYLEgqsHW9vMh93EElZ4kB3gT8uUmO_vS4ag/exec";
 
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
