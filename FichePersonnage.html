@@ -4,43 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche Personnage</title>
-
-    <!-- 🔹 Import Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-
-
-    <script>
-        console.log("🔄 Vérification : Firebase existe ?", typeof firebase !== "undefined");
-    
-        // 📌 Configuration Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
-            authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
-            projectId: "jeu-de-role-c2c3c",
-            storageBucket: "jeu-de-role-c2c3c.appspot.com",
-            messagingSenderId: "984167900465",
-            appId: "1:984167900465:web:2b643222efc877d62afc10",
-            measurementId: "G-8MQWWG8P8N"
-        };
-    
-        // 📌 Initialisation Firebase uniquement si non déjà chargé
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-            console.log("✅ Firebase correctement chargé !");
-        } else {
-            console.log("⚠ Firebase était déjà chargé !");
-        }
-    
-        // 📌 Création de la base Firestore
-        const db = firebase.firestore();
-    </script>
-    
-
-    <!-- 🔹 Chargement de `FichePersonnage.js` APRÈS Firebase -->
-    <script src="FichePersonnage.js" defer></script>
-
+    <link rel="stylesheet" href="StyleFichePersonnage.css">
 </head>
+
 <body>
     <h1>Fiche de Personnage</h1>
 
@@ -49,7 +15,7 @@
 
     <label>Histoire :</label>
     <textarea id="histoire"></textarea>
-    
+
     <label>Description physique :</label>
     <textarea id="description"></textarea>
 
@@ -61,8 +27,18 @@
     <label>Sagesse :</label> <input type="number" id="sagesse">
     <label>Charisme :</label> <input type="number" id="charisme">
 
+    <h3>Choisir un personnage :</h3>
+    <select id="playerSelect"></select>
+
     <br><br>
     <button onclick="sauvegarderPersonnage()">Enregistrer</button>
-    <button onclick="location.href='FichesPersonnages.html'">Retour</button>
+    <button onclick="chargerPersonnages()">Recharger la liste</button>
+    <button onclick="chargerFichePersonnage()">Charger la fiche</button>
+
+    <br><br>
+    <button onclick="location.href='index.html'">Retour</button>
+
+    <!-- 🔹 Lien vers le script JS -->
+    <script src="FichePersonnage.js"></script>
 </body>
 </html>
