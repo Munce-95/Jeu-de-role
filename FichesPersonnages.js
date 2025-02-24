@@ -1,18 +1,34 @@
-document.addEventListener("DOMContentLoaded", () => {
+// 📌 URL de ton script Google Sheets
+const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyCAKz_s78tlcurnEfUMZr558a3qGkTo5RUxzJV1qhWJYDJcGJoVs3pg9X5lVTVsdS-ig/exec";
+
+document.addEventListener("DOMContentLoaded", async () => {
     let liste = document.getElementById("listePersonnages");
     liste.innerHTML = ""; // Réinitialisation
 
-    let joueurs = ["joueur1", "joueur2", "joueur3", "joueur4", "joueur5", "joueur6"];
+    try {
+        // 📌 Récupération des personnages depuis Google Sheets
+        const response = await fetch(GOOGLE_SHEET_URL);
+        const personnages = await response.json();
 
-    joueurs.forEach(joueurID => {
-        let personnage = JSON.parse(localStorage.getItem(joueurID));
-        let nom = personnage && personnage.nom ? personnage.nom : `Joueur ${joueurID.replace("joueur", "")}`;
+        if (!personnages || personnages.length === 0) {
+            liste.innerHTML = "<p>Aucun personnage trouvé.</p>";
+            return;
+        }
 
-        let bouton = document.createElement("button");
-        bouton.innerText = nom;
-        bouton.onclick = () => location.href = `FichePersonnage.html?joueur=${joueurID}`;
-        
-        liste.appendChild(bouton);
-        liste.appendChild(document.createElement("br"));
-    });
+        // 📌 Générer les boutons avec les noms récupérés
+        personnages.forEach(personnage => {
+            let nom = personnage.Nom || `Joueur ${personnage.ID}`;
+
+            let bouton = document.createElement("button");
+            bouton.innerText = nom;
+            bouton.onclick = () => location.href = `FichePersonnage.html?id=${personnage.ID}`;
+
+            liste.appendChild(bouton);
+            liste.appendChild(document.createElement("br"));
+        });
+
+    } catch (error) {
+        console.error("❌ Erreur lors du chargement des personnages :", error);
+        liste.innerHTML = "<p>Erreur lors du chargement des personnages.</p>";
+    }
 });

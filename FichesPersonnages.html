@@ -4,57 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiches des Personnages</title>
+    <link rel="stylesheet" href="StyleFichesPersonnages.css">
 </head>
 
 <body>
     <h1>Liste des Personnages</h1>
 
-    <h3>Choisir un personnage :</h3>
-    <select id="playerSelect"></select>
-
-    <br><br>
-    <button onclick="chargerPersonnages()">Recharger la liste</button>
-    <button onclick="ouvrirFichePersonnage()">Ouvrir la fiche</button>
+    <div id="listePersonnages"></div>
 
     <br><br>
     <button onclick="location.href='index.html'">Retour</button>
 
-    <script>
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyCAKz_s78tlcurnEfUMZr558a3qGkTo5RUxzJV1qhWJYDJcGJoVs3pg9X5lVTVsdS-ig/exec";
-
-        async function chargerPersonnages() {
-            try {
-                const response = await fetch(GOOGLE_SHEET_URL);
-                const personnages = await response.json();
-
-                console.log("📜 Personnages chargés :", personnages);
-
-                let select = document.getElementById("playerSelect");
-                select.innerHTML = "";
-
-                personnages.forEach(perso => {
-                    let option = document.createElement("option");
-                    option.value = perso.ID;
-                    option.textContent = perso.Nom;
-                    select.appendChild(option);
-                });
-            } catch (error) {
-                console.error("❌ Erreur lors du chargement des personnages :", error);
-            }
-        }
-
-        function ouvrirFichePersonnage() {
-            let playerID = document.getElementById("playerSelect").value;
-            if (!playerID) {
-                alert("Sélectionnez un personnage !");
-                return;
-            }
-            location.href = `FichePersonnage.html?id=${playerID}`;
-        }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            chargerPersonnages();
-        });
-    </script>
+    <script src="FichesPersonnages.js"></script>
 </body>
 </html>
