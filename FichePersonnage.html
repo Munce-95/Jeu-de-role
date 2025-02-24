@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche Personnage</title>
 
-    <!-- 🔹 Import Firebase depuis le CDN (version correcte, pas de `import`) -->
+    <!-- 🔹 Import Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 
+
     <script>
         console.log("🔄 Vérification : Firebase existe ?", typeof firebase !== "undefined");
-
+    
         // 📌 Configuration Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
@@ -22,7 +23,7 @@
             appId: "1:984167900465:web:2b643222efc877d62afc10",
             measurementId: "G-8MQWWG8P8N"
         };
-
+    
         // 📌 Initialisation Firebase uniquement si non déjà chargé
         if (!firebase.apps.length) {
             firebase.initializeApp(firebaseConfig);
@@ -30,10 +31,11 @@
         } else {
             console.log("⚠ Firebase était déjà chargé !");
         }
-
+    
         // 📌 Création de la base Firestore
         const db = firebase.firestore();
     </script>
+    
 
     <!-- 🔹 Chargement de `FichePersonnage.js` APRÈS Firebase -->
     <script src="FichePersonnage.js" defer></script>

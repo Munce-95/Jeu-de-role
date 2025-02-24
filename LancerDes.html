@@ -6,10 +6,13 @@
     <title>Lancer de Dés</title>
 
     <!-- 🔹 Import Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
 
     <script>
+        console.log("🔄 Vérification : Firebase existe ?", typeof firebase !== "undefined");
+    
         // 📌 Configuration Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
@@ -20,13 +23,19 @@
             appId: "1:984167900465:web:2b643222efc877d62afc10",
             measurementId: "G-8MQWWG8P8N"
         };
-
-        // 📌 Initialisation Firebase
-        firebase.initializeApp(firebaseConfig);
+    
+        // 📌 Initialisation Firebase uniquement si non déjà chargé
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+            console.log("✅ Firebase correctement chargé !");
+        } else {
+            console.log("⚠ Firebase était déjà chargé !");
+        }
+    
+        // 📌 Création de la base Firestore
         const db = firebase.firestore();
-
-        console.log("✅ Firebase chargé dans LancerDes.html !");
     </script>
+    
 
     <!-- 🔹 Chargement de LancerDes.js après Firebase -->
     <script src="LancerDes.js" defer></script>
