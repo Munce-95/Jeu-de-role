@@ -1,15 +1,24 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
-    authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
-    projectId: "jeu-de-role-c2c3c",
-    storageBucket: "jeu-de-role-c2c3c.firebasestorage.app",
-    messagingSenderId: "984167900465",
-    appId: "1:984167900465:web:2b643222efc877d62afc10",
-    measurementId: "G-8MQWWG8P8N"
-  };
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
+  authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
+  projectId: "jeu-de-role-c2c3c",
+  storageBucket: "jeu-de-role-c2c3c.firebasestorage.app",
+  messagingSenderId: "984167900465",
+  appId: "1:984167900465:web:2b643222efc877d62afc10",
+  measurementId: "G-8MQWWG8P8N"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const params = new URLSearchParams(window.location.search);
 const joueurID = params.get("joueur");
