@@ -3,36 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche Personnage</title>
-    <link rel="stylesheet" href="StyleFichePersonnage.css">
+    <title>Fiche du personnage</title>
+    <script defer src="FichePersonnage.js"></script>
 </head>
-
 <body>
-    <h1>Fiche de Personnage</h1>
+    <h1>Fiche du personnage</h1>
+    
+    <label>Nom: <input type="text" id="nomPersonnage"></label><br>
+    <label>Histoire: <textarea id="histoire"></textarea></label><br>
+    <label>Description: <textarea id="description"></textarea></label><br>
+    
+    <label>Force: <input type="number" id="force"></label><br>
+    <label>Dextérité: <input type="number" id="dexterite"></label><br>
+    <label>Constitution: <input type="number" id="constitution"></label><br>
+    <label>Intelligence: <input type="number" id="intelligence"></label><br>
+    <label>Sagesse: <input type="number" id="sagesse"></label><br>
+    <label>Charisme: <input type="number" id="charisme"></label><br>
 
-    <label>Nom du personnage :</label>
-    <input type="text" id="nomPersonnage">
-
-    <label>Histoire :</label>
-    <textarea id="histoire"></textarea>
-
-    <label>Description physique :</label>
-    <textarea id="description"></textarea>
-
-    <h3>Caractéristiques :</h3>
-    <label>Force :</label> <input type="number" id="force">
-    <label>Dextérité :</label> <input type="number" id="dexterite">
-    <label>Constitution :</label> <input type="number" id="constitution">
-    <label>Intelligence :</label> <input type="number" id="intelligence">
-    <label>Sagesse :</label> <input type="number" id="sagesse">
-    <label>Charisme :</label> <input type="number" id="charisme">
-
-    <br><br>
     <button onclick="sauvegarderPersonnage()">Enregistrer</button>
-
-    <br><br>
     <button onclick="location.href='FichesPersonnages.html'">Retour</button>
-
-    <script src="FichePersonnage.js"></script>
 </body>
 </html>

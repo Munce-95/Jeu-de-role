@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lancer de Dés</title>
-    <link rel="stylesheet" href="StyleLancerDes.css">
+    <title>Lancer des dés</title>
+    <script defer src="LancerDes.js"></script>
 </head>
-
 <body>
     <h1>Lancer de Dés</h1>
-
-    <h3>Choisir un personnage :</h3>
+    
+    <label for="playerSelect">Choisir un joueur :</label>
     <select id="playerSelect"></select>
 
-    <h3>Statistique à tester :</h3>
+    <h3>Choisir une caractéristique :</h3>
     <button onclick="lancerDe('Force')">Force</button>
     <button onclick="lancerDe('Dextérité')">Dextérité</button>
     <button onclick="lancerDe('Constitution')">Constitution</button>
@@ -21,12 +20,8 @@
     <button onclick="lancerDe('Sagesse')">Sagesse</button>
     <button onclick="lancerDe('Charisme')">Charisme</button>
 
-    <h3>Résultat :</h3>
-    <p id="resultat">Aucun jet effectué.</p>
+    <h2 id="resultat">Résultat :</h2>
 
-    <br><br>
     <button onclick="location.href='index.html'">Retour</button>
-
-    <script src="LancerDes.js"></script>
 </body>
 </html>
