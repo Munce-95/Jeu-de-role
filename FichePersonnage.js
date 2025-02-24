@@ -1,31 +1,16 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+// 📌 Vérification si Firebase est bien chargé
+if (!firebase.apps.length) {
+    console.error("Firebase n'est pas chargé !");
+}
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
-  authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
-  projectId: "jeu-de-role-c2c3c",
-  storageBucket: "jeu-de-role-c2c3c.firebasestorage.app",
-  messagingSenderId: "984167900465",
-  appId: "1:984167900465:web:2b643222efc877d62afc10",
-  measurementId: "G-8MQWWG8P8N"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
+// 📌 Récupération du joueur depuis l'URL
 const params = new URLSearchParams(window.location.search);
 const joueurID = params.get("joueur");
 
 document.addEventListener("DOMContentLoaded", () => {
     if (!joueurID) return alert("Erreur : Aucun joueur sélectionné !");
 
+    // 📌 1. Charger les données depuis Firestore
     db.collection("personnages").doc(joueurID).get().then((doc) => {
         if (doc.exists) {
             let personnage = doc.data();
@@ -41,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             console.log("Aucune donnée trouvée !");
         }
-    });
+    }).catch(error => console.error("Erreur de chargement :", error));
 });
 
 function sauvegarderPersonnage() {
@@ -64,6 +49,9 @@ function sauvegarderPersonnage() {
         charisme: Number(document.getElementById("charisme").value)
     };
 
+    console.log("Données envoyées à Firebase :", personnage);
+
+    // 📌 2. Enregistrer les données sur Firestore
     db.collection("personnages").doc(joueurID).set(personnage).then(() => {
         alert("Personnage sauvegardé !");
     }).catch((error) => {

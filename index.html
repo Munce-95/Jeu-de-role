@@ -6,11 +6,26 @@
     <title>Acceuil</title>
     <link rel="stylesheet" href="StyleAcceuil.css">
     <link rel="icon" href="">
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 
 </head>
 <body>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
+            authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
+            projectId: "jeu-de-role-c2c3c",
+            storageBucket: "jeu-de-role-c2c3c.firebasestorage.app",
+            messagingSenderId: "984167900465",
+            appId: "1:984167900465:web:2b643222efc877d62afc10",
+            measurementId: "G-8MQWWG8P8N"
+        };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+</script>
     <div class="link-container">
         <h1>Bienvenue sur le Jeu de Rôle</h1>
         <button onclick="location.href='LancerDes.html'">Lancer des dés</button>
