@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lancer de Dés</title>
+    <script src="LancerDes.js" defer></script>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lancer de dés</h1>
+
+        <label for="playerSelect">Choisir un joueur :</label>
+        <select id="playerSelect"></select>
+
+        <h2>Choisissez une caractéristique :</h2>
+        <button onclick="lancerDe('force')">Force</button>
+        <button onclick="lancerDe('dexterite')">Dextérité</button>
+        <button onclick="lancerDe('constitution')">Constitution</button>
+        <button onclick="lancerDe('intelligence')">Intelligence</button>
+        <button onclick="lancerDe('sagesse')">Sagesse</button>
+        <button onclick="lancerDe('charisme')">Charisme</button>
+
+        <h3 id="resultat"></h3>
+        
+        <button onclick="location.href='index.html'">Retour</button>
+    </div>
+</body>
+</html>
