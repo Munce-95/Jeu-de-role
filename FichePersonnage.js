@@ -1,18 +1,25 @@
-// 📌 Vérifie si Firebase est bien chargé
-if (!firebase.apps.length) {
-    console.error("❌ Firebase n'est pas chargé !");
+// 📌 Vérification si Firebase est bien chargé
+if (typeof firebase === "undefined") {
+    console.error("❌ Firebase n'est PAS chargé !");
 } else {
     console.log("✅ Firebase est bien chargé !");
 }
 
-// 📌 Récupération du joueur depuis l'URL
 const params = new URLSearchParams(window.location.search);
 const joueurID = params.get("joueur");
 
 document.addEventListener("DOMContentLoaded", () => {
     if (!joueurID) return alert("Erreur : Aucun joueur sélectionné !");
 
-    // 📌 Charger les données depuis Firebase
+    console.log("📌 Chargement des données pour :", joueurID);
+
+    // 📌 Vérifier que `db` est bien défini
+    if (typeof db === "undefined") {
+        console.error("❌ La base de données Firestore (`db`) n'est pas définie !");
+        return;
+    }
+
+    // 📌 Charger les données depuis Firestore
     db.collection("personnages").doc(joueurID).get().then((doc) => {
         if (doc.exists) {
             let personnage = doc.data();
@@ -32,6 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function sauvegarderPersonnage() {
+    if (typeof db === "undefined") {
+        console.error("❌ Impossible de sauvegarder : Firestore (`db`) n'est pas défini !");
+        return;
+    }
+
     let nomPersonnage = document.getElementById("nomPersonnage").value.trim();
 
     if (!nomPersonnage) {
@@ -53,7 +65,7 @@ function sauvegarderPersonnage() {
 
     console.log("✅ Données envoyées à Firebase :", personnage);
 
-    // 📌 Enregistrer les données sur Firebase
+    // 📌 Enregistrer les données sur Firestore
     db.collection("personnages").doc(joueurID).set(personnage).then(() => {
         alert("✅ Personnage sauvegardé !");
     }).catch((error) => {

@@ -4,7 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fiche Personnage</title>
+
+    <!-- 🔹 Import Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js"></script>
+
+    <script>
+        // 📌 Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDWIOBmP_ekMY39QrlxwONPOwMNCI1JsfA",
+            authDomain: "jeu-de-role-c2c3c.firebaseapp.com",
+            projectId: "jeu-de-role-c2c3c",
+            storageBucket: "jeu-de-role-c2c3c.appspot.com",
+            messagingSenderId: "984167900465",
+            appId: "1:984167900465:web:2b643222efc877d62afc10",
+            measurementId: "G-8MQWWG8P8N"
+        };
+
+        // 📌 Initialisation Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        console.log("✅ Firebase chargé dans FichePersonnage.html !");
+    </script>
+
+    <!-- 🔹 Chargement de `FichePersonnage.js` APRÈS que Firebase soit défini -->
     <script src="FichePersonnage.js" defer></script>
+
 </head>
 <body>
     <h1>Fiche de Personnage</h1>
