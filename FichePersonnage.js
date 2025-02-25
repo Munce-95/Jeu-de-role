@@ -68,8 +68,8 @@ async function sauvegarderPersonnage() {
     console.log("📌 Données envoyées :", personnage);
 
     try {
-        const response = await fetch(API_URL, {
-            method: "POST", // 🔹 On utilise POST + UPSERT
+        const response = await fetch(`${API_URL}?ID=eq.${playerID}`, {
+            method: "PATCH", // 🔹 On utilise POST + UPSERT
             headers: { 
                 "apikey": SUPABASE_KEY,
                 "Content-Type": "application/json",
