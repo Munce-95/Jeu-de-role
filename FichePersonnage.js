@@ -48,8 +48,6 @@ async function chargerFichePersonnage() {
         console.error("❌ Erreur lors du chargement de la fiche :", error);
     }
 }
-
-// 📌 Sauvegarder les modifications avec UPSERT
 async function sauvegarderPersonnage() {
     let personnage = {
         "Nom": document.getElementById("nomPersonnage").value.trim(),
@@ -92,6 +90,7 @@ async function sauvegarderPersonnage() {
         console.error("❌ Erreur lors de la sauvegarde :", error);
     }
 }
+
 
 // 📌 Charger la fiche au démarrage
 document.addEventListener("DOMContentLoaded", chargerFichePersonnage);
