@@ -1,6 +1,9 @@
 // 🔹 Initialisation Supabase (À mettre tout en haut !)
 const SUPABASE_URL = "https://sxwltroedzxkvqpbcqjc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zF-wqr95rZ2zA"; // 🔹 Remplace par ta clé API
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zF-wqr95rZ2zA";
+const API_PERSONNAGES = `${SUPABASE_URL}/rest/v1/personnages`;
+const API_JETS = `${SUPABASE_URL}/rest/v1/JetDeDes`;
+
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // 🔴 Écouter les nouveaux jets de dés en temps réel
