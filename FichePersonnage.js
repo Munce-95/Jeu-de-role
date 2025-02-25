@@ -48,6 +48,7 @@ async function chargerFichePersonnage() {
         console.error("❌ Erreur lors du chargement de la fiche :", error);
     }
 }
+
 async function sauvegarderPersonnage() {
     let personnage = {
         "Nom": document.getElementById("nomPersonnage").value.trim(),
@@ -75,15 +76,25 @@ async function sauvegarderPersonnage() {
         });
 
         console.log("📌 Réponse brute de Supabase :", response);
+        console.log("📌 Code HTTP :", response.status);
 
-        // 🔹 Vérifie si la réponse est vide
-        if (response.status === 204) { 
-            console.log("✅ Mise à jour réussie, mais aucune donnée retournée !");
+        // ✅ Si la réponse est vide (204 No Content), on évite `response.json()`
+        if (response.status === 204 || response.status === 200) { 
+            console.log("✅ Mise à jour réussie, aucune donnée retournée !");
             alert("Personnage mis à jour avec succès !");
             return;
         }
 
-        const result = await response.json();
+        // 🔹 Vérifie si la réponse contient du JSON valide
+        const textResponse = await response.text();
+        if (!textResponse) {
+            console.log("✅ Mise à jour réussie, mais Supabase n’a rien renvoyé.");
+            alert("Personnage mis à jour avec succès !");
+            return;
+        }
+
+        // 🔹 Convertir en JSON seulement si du contenu est présent
+        const result = JSON.parse(textResponse);
         console.log("✅ Personnage mis à jour :", result);
         alert("Personnage mis à jour avec succès !");
 
