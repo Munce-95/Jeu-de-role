@@ -52,7 +52,6 @@ async function chargerFichePersonnage() {
 // 📌 Sauvegarder les modifications avec UPSERT
 async function sauvegarderPersonnage() {
     let personnage = {
-        "ID": String(playerID), // 🔹 Forcer l'ID en `TEXT`
         "Nom": document.getElementById("nomPersonnage").value.trim(),
         "Histoire": document.getElementById("histoire").value.trim(),
         "Description": document.getElementById("description").value.trim(),
@@ -68,18 +67,22 @@ async function sauvegarderPersonnage() {
     console.log("📌 Données envoyées :", personnage);
 
     try {
-        const response = await fetch(`${API_URL}?ID=eq.${playerID}`, {
-            method: "PATCH", // 🔹 On utilise POST + UPSERT
+        // 🔹 Utiliser PATCH pour mettre à jour l'entrée existante
+        const response = await fetch(`${API_URL}?ID=eq.${playerID}`, { // 🔹 Ajout du filtre sur l'ID
+            method: "PATCH",  // 🔹 PATCH au lieu de POST
             headers: { 
                 "apikey": SUPABASE_KEY,
-                "Content-Type": "application/json",
-                "Prefer": "resolution=merge" // 🔹 Permet de fusionner au lieu de créer un conflit
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(personnage)
         });
 
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP ${response.status}: ${await response.text()}`);
+        }
+
         const result = await response.json();
-        console.log("✅ Personnage sauvegardé :", result);
+        console.log("✅ Personnage mis à jour :", result);
         alert("Personnage mis à jour avec succès !");
 
         // 📌 Recharger la fiche après la sauvegarde
