@@ -8,20 +8,41 @@
     <link rel="stylesheet" href="StyleFiche.css">
 </head>
 <body>
+
     <h1>Fiche du personnage</h1>
     
-    <label>Nom: <input type="text" id="nomPersonnage"></label><br>
-    <label>Histoire: <textarea id="histoire"></textarea></label><br>
-    <label>Description: <textarea id="description"></textarea></label><br>
-    
-    <label>Force: <input type="number" id="force"></label><br>
-    <label>Dextérité: <input type="number" id="dexterite"></label><br>
-    <label>Constitution: <input type="number" id="constitution"></label><br>
-    <label>Intelligence: <input type="number" id="intelligence"></label><br>
-    <label>Sagesse: <input type="number" id="sagesse"></label><br>
-    <label>Charisme: <input type="number" id="charisme"></label><br>
+    <div class="fiche-container">
+        
+        <!-- 📜 Zone de description (Gauche) -->
+        <div class="description-container">
+            <label for="description">Description :</label>
+            <textarea id="description"></textarea>
+        </div>
 
-    <button onclick="sauvegarderPersonnage()">Enregistrer</button>
-    <button onclick="location.href='FichesPersonnages.html'">Retour</button>
+        <!-- 📖 Zone de l'histoire (Centre) -->
+        <div class="histoire-container">
+            <label for="histoire">Histoire :</label>
+            <textarea id="histoire"></textarea>
+        </div>
+
+        <!-- 📊 Zone des statistiques (Droite) -->
+        <div class="stats-container">
+            <label>Nom: <input type="text" id="nomPersonnage"></label><br>
+            <label>Force: <input type="number" id="force"></label><br>
+            <label>Dextérité: <input type="number" id="dexterite"></label><br>
+            <label>Constitution: <input type="number" id="constitution"></label><br>
+            <label>Intelligence: <input type="number" id="intelligence"></label><br>
+            <label>Sagesse: <input type="number" id="sagesse"></label><br>
+            <label>Charisme: <input type="number" id="charisme"></label><br>
+        </div>
+
+    </div>
+
+    <!-- 🔘 Boutons -->
+    <div class="boutons-container">
+        <button onclick="sauvegarderPersonnage()">Enregistrer</button>
+        <button onclick="location.href='FichesPersonnages.html'">Retour</button>
+    </div>
+
 </body>
 </html>

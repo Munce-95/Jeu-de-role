@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("stone_wall.png"); /* Remplace par le bon fichier */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🌟 Conteneur global */
+.fiche-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* 3 Colonnes : Gauche / Centre / Droite */
+    gap: 20px;
+    width: 80%;
+    max-width: 1200px;
+}
+
+/* 🎭 Zone de Description (Colonne gauche) */
+.description-container {
+    background-color: rgba(167, 167, 167, 0.82);
+    color: #161616;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.description-container textarea {
+    width: 100%;
+    height: 150px;
+    background: transparent;
+    border: none;
+    color: #161616;
+    font-size: 16px;
+    resize: none;
+}
+
+/* 📜 Zone d'Histoire (Colonne centrale) */
+.histoire-container {
+    background-color: rgba(167, 167, 167, 0.82);
+    color: #161616;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.histoire-container textarea {
+    width: 100%;
+    height: 250px;
+    background: transparent;
+    border: none;
+    color: #161616;
+    font-size: 16px;
+    resize: none;
+}
+
+/* 📊 Zone des statistiques (Colonne droite) */
+.stats-container {
+    background-color: rgba(167, 167, 167, 0.82);
+    color: black;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+}
+
+.stats-container input {
+    width: 60px;
+    padding: 5px;
+    margin: 5px 0;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* 🎭 Style du nom */
+h1 {
+    color: #f4f4f4;
+    text-shadow: 3px 3px 5px #0d0d3a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 🎮 Style des boutons */
+.boutons-container {
+    margin-top: 20px;
+}
+
+.boutons-container button {
+    background-color: rgba(167, 167, 167, 0.82);
+    color: #f4f4f4;
+    border: none;
+    padding: 10px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.boutons-container button:hover {
+    opacity: 0.6;
+}
