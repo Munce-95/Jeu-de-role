@@ -30,7 +30,7 @@ body {
 }
 
 /* 📜 Partie Gauche : Résultat */
-.resultat-container {
+.cssClassat-container {
     background-color: #34436B;
     border: 2px solid #B0B0B0;
     border-radius: 10px;
@@ -40,7 +40,7 @@ body {
     color: white;
 }
 
-.resultat-container h2 {
+.cssClassat-container h2 {
     margin-bottom: 10px;
 }
 
@@ -77,4 +77,29 @@ button:hover {
     position: absolute;
     top: 20px;
     left: 20px;
+}
+
+
+#resultat .SupEchecCrit {
+    color: rgb(189, 0, 0); /* 🔴 Super Échec Critique */
+}
+
+#resultat .EchecCrit {
+    color: rgb(153, 99, 0); /* 🟠 Échec Critique */
+}
+
+#resultat .invalide {
+    color: #ebc000; /* 🟡 Échec Normal */
+}
+
+#resultat .valide {
+    color: #10b118; /* 🟢 Réussite Normale */
+}
+
+#resultat .ReuCrit {
+    color: #2c8037; /* 🟢 Réussite Critique */
+}
+
+#resultat .SupReuCrit {
+    color: rgb(10, 196, 196); /* 🔵 Super Réussite Critique */
 }

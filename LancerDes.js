@@ -1,6 +1,6 @@
 // 🔹 Initialisation de Supabase
 const SUPABASE_URL = "https://sxwltroedzxkvqpbcqjc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zF-wqr95rZ2zA";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zA";
 const API_PERSONNAGES = `${SUPABASE_URL}/rest/v1/personnages`;
 const API_JETS = `${SUPABASE_URL}/rest/v1/JetDeDes`;
 
@@ -67,7 +67,29 @@ async function lancerDe(caracteristique) {
         let statJoueur = data[0][caracteristique]; // 🔹 Valeur de la caractéristique sélectionnée
         let resultat = Math.floor(Math.random() * 100) + 1; // 🔹 Simulation d'un d100
 
-        let reussite = resultat <= statJoueur ? "Réussite" : "Échec"; // 🔹 Vérification du jet
+        let reussite;
+        let cssClass;
+
+        // 🔹 Détermination du résultat avec critiques
+        if (resultat === 1) {
+            reussite = "Super Réussite Critique";
+            cssClass = "SupReuCrit";
+        } else if (resultat <= 10) {
+            reussite = "Réussite Critique";
+            cssClass = "ReuCrit";
+        } else if (resultat <= statJoueur) {
+            reussite = "Réussite";
+            cssClass = "valide";
+        } else if (resultat >= 100) {
+            reussite = "Super Échec Critique";
+            cssClass = "SupEchecCrit";
+        } else if (resultat >= 90) {
+            reussite = "Échec Critique";
+            cssClass = "EchecCrit";
+        } else {
+            reussite = "Échec";
+            cssClass = "invalide";
+        }
 
         console.log(`🎲 ${joueurNom} (${caracteristique} : ${statJoueur}) a obtenu ${resultat} → ${reussite}`);
 
@@ -75,7 +97,7 @@ async function lancerDe(caracteristique) {
         let resultatContainer = document.getElementById("resultat");
         resultatContainer.innerHTML = `
             <h3>Résultat du dé pour "<strong>${caracteristique}</strong>" :</h3>
-            <h2 style="color: ${reussite === "Réussite" ? "gold" : "red"};">${resultat} - ${reussite}</h2>
+            <h2 class="${cssClass}">${resultat} - ${reussite}</h2>
             <p><small>(${joueurNom})</small></p>
         `;
 
@@ -123,10 +145,27 @@ async function chargerDernierJet() {
 
 // 🔹 Fonction pour afficher le dernier résultat reçu
 function afficherResultat(jet) {
+    let cssClass;
+
+    // 🔹 Application des mêmes règles que pour `lancerDe()`
+    if (jet.Résultat === 1) {
+        cssClass = "SupReuCrit";
+    } else if (jet.Résultat <= 10) {
+        cssClass = "ReuCrit";
+    } else if (jet.Résultat <= jet.Caractéristique) {
+        cssClass = "valide";
+    } else if (jet.Résultat === 100) {
+        cssClass = "SupEchecCrit";
+    } else if (jet.Résultat >= 90) {
+        cssClass = "EchecCrit";
+    } else {
+        cssClass = "invalide";
+    }
+
     let resultatContainer = document.getElementById("resultat");
     resultatContainer.innerHTML = `
         <h3>Résultat du dé pour "<strong>${jet.Caractéristique}</strong>" :</h3>
-        <h2 style="color: ${jet.Issue === "Réussite" ? "gold" : "red"};">${jet.Résultat} - ${jet.Issue}</h2>
+        <h2 class="${cssClass}">${jet.Résultat} - ${jet.Issue}</h2>
         <p><small>(${jet.Joueur})</small></p>
     `;
 }
