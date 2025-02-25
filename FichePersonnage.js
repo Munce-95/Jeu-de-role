@@ -65,9 +65,8 @@ async function sauvegarderPersonnage() {
     console.log("📌 Données envoyées :", personnage);
 
     try {
-        // 🔹 Utiliser PATCH pour mettre à jour l'entrée existante
-        const response = await fetch(`${API_URL}?ID=eq.${playerID}`, { // 🔹 Ajout du filtre sur l'ID
-            method: "PATCH",  // 🔹 PATCH au lieu de POST
+        const response = await fetch(`${API_URL}?ID=eq.${playerID}`, {
+            method: "PATCH",  
             headers: { 
                 "apikey": SUPABASE_KEY,
                 "Content-Type": "application/json"
@@ -75,8 +74,13 @@ async function sauvegarderPersonnage() {
             body: JSON.stringify(personnage)
         });
 
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP ${response.status}: ${await response.text()}`);
+        console.log("📌 Réponse brute de Supabase :", response);
+
+        // 🔹 Vérifie si la réponse est vide
+        if (response.status === 204) { 
+            console.log("✅ Mise à jour réussie, mais aucune donnée retournée !");
+            alert("Personnage mis à jour avec succès !");
+            return;
         }
 
         const result = await response.json();
