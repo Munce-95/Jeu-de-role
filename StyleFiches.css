@@ -11,26 +11,30 @@ body {
     background-repeat: no-repeat;
     height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-/* 🌟 Conteneur des boutons de fiche */
-.fiches-container {
+/* 🎨 Style du titre */
+h1 {
+    color: #f4f4f4;
+    text-shadow: 3px 3px 5px #0d0d3a;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 🌟 Conteneur des boutons */
+#listePersonnages {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
     grid-gap: 20px;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
-/* 🔴 Style des boutons des fiches */
-.fiche-btn {
+/* 🔴 Style des boutons de fiche */
+#listePersonnages button {
     background-color: rgba(167, 167, 167, 0.82);
     color: #f4f4f4;
     border: none;
@@ -43,12 +47,12 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
-.fiche-btn:hover {
+#listePersonnages button:hover {
     opacity: 0.6; /* 🔹 Réduction d'opacité */
 }
 
 /* 🟢 Bouton retour */
-.retour-btn {
+button[onclick*="index.html"] {
     background-color: rgba(167, 167, 167, 0.82);
     color: #f4f4f4;
     border: none;
@@ -62,6 +66,6 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
-.retour-btn:hover {
+button[onclick*="index.html"]:hover {
     opacity: 0.6;
 }
