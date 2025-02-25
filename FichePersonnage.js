@@ -48,35 +48,40 @@ async function chargerFichePersonnage() {
 
 async function sauvegarderPersonnage() {
     let personnage = {
-        ID: playerID,
-        Nom: document.getElementById("nomPersonnage").value.trim(),
-        Histoire: document.getElementById("histoire").value.trim(),
-        Description: document.getElementById("description").value.trim(),
-        Force: Number(document.getElementById("force").value),
-        Dextérité: Number(document.getElementById("dexterite").value),
-        Constitution: Number(document.getElementById("constitution").value),
-        Intelligence: Number(document.getElementById("intelligence").value),
-        Sagesse: Number(document.getElementById("sagesse").value),
-        Charisme: Number(document.getElementById("charisme").value)
+        "ID": playerID,
+        "Nom": document.getElementById("nomPersonnage").value.trim(),
+        "Histoire": document.getElementById("histoire").value.trim(),
+        "Description": document.getElementById("description").value.trim(),
+        "Force": Number(document.getElementById("force").value),
+        "Dextérité": Number(document.getElementById("dexterite").value),
+        "Constitution": Number(document.getElementById("constitution").value),
+        "Intelligence": Number(document.getElementById("intelligence").value),
+        "Sagesse": Number(document.getElementById("sagesse").value),
+        "Charisme": Number(document.getElementById("charisme").value)
     };
 
     try {
-        await fetch(API_URL, {
+        const response = await fetch(API_URL, {
             method: "POST",
             headers: { 
                 "apikey": SUPABASE_KEY,
                 "Content-Type": "application/json",
-                "Prefer": "resolution=merge"
+                "Prefer": "resolution=merge" // 🔹 Solution pour éviter le conflit
             },
             body: JSON.stringify(personnage)
         });
 
-        alert("Personnage mis à jour !");
+        const result = await response.json();
+        console.log("✅ Personnage sauvegardé :", result);
+        alert("Personnage mis à jour avec succès !");
+
+        // 📌 Recharger la fiche après la sauvegarde
         chargerFichePersonnage();
 
     } catch (error) {
         console.error("❌ Erreur lors de la sauvegarde :", error);
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", chargerFichePersonnage);
