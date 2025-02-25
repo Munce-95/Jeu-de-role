@@ -79,6 +79,24 @@ button:hover {
     left: 20px;
 }
 
+/* 📜 Cadre autour du résultat */
+.resultat-container {
+    background-color: rgba(52, 67, 107, 0.82); /* 🔹 Bleu foncé semi-transparent */
+    border: 3px solid #c0c0c0; /* 🔹 Bordure grise */
+    border-radius: 10px; /* 🔹 Coins arrondis */
+    padding: 15px; /* 🔹 Espace interne */
+    width: 300px; /* 🔹 Largeur fixe */
+    text-align: center; /* 🔹 Centrer le texte */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5); /* 🔹 Ombre légère */
+}
+
+/* 🎲 Texte du résultat */
+#resultat {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
 
 #resultat .SupEchecCrit {
     color: rgb(189, 0, 0); /* 🔴 Super Échec Critique */
@@ -103,3 +121,34 @@ button:hover {
 #resultat .SupReuCrit {
     color: rgb(10, 196, 196); /* 🔵 Super Réussite Critique */
 }
+
+/* 📜 Conteneur de l'historique */
+.historique-container {
+    background-color: rgba(52, 67, 107, 0.82);
+    border: 3px solid #c0c0c0;
+    border-radius: 10px;
+    padding: 15px;
+    width: 350px;
+    text-align: left;
+    margin-top: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 📜 Liste des jets */
+#historique {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* 📜 Élément de la liste */
+#historique li {
+    font-size: 16px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 📜 Dernier élément sans bordure */
+#historique li:last-child {
+    border-bottom: none;
+}
+

@@ -121,6 +121,34 @@ function afficherResultat(jet) {
     `;
 }
 
+// 🔹 Fonction pour charger l'historique des jets en temps réel
+async function chargerHistorique() {
+    try {
+        let data = await fetchSupabase(`${API_JETS}?order=Timestamp.desc&limit=10`);
+        afficherHistorique(data);
+    } catch (error) {
+        console.error("❌ Erreur lors du chargement de l'historique :", error);
+    }
+}
+
+// 🔹 Fonction pour afficher l'historique des jets
+function afficherHistorique(jets) {
+    let historiqueContainer = document.getElementById("historique");
+    historiqueContainer.innerHTML = ""; // Vide l'historique avant de le remplir
+
+    jets.forEach(jet => {
+        let li = document.createElement("li");
+        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : <span class="${getResultatClass(jet.Résultat, jet.Caractéristique).cssClass}">${jet.Résultat}</span> (${jet.Joueur})`;
+        historiqueContainer.appendChild(li);
+    });
+}
+
+// 🔹 Rafraîchir l'historique toutes les 5 secondes
+setInterval(chargerHistorique, 5000);
+
+// 🔹 Charger l'historique immédiatement au chargement de la page
+document.addEventListener("DOMContentLoaded", chargerHistorique);
+
 /**
  * 🔹 Charger le dernier résultat au démarrage
  */
