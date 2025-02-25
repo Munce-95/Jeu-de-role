@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("stoneETrune.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100vw;
+}
+
+.link-container {
+    background-color: rgba(167, 167, 167, 0.82);
+    border: 3px solid #2e2e2e;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    color: #000000;
+    text-align: center;
+    text-shadow: 3px 3px 5px #0d0d3a;
+    margin-bottom: 20px;
+}
+
+.link-container button {
+    background-color: #525252;
+    color: #f4f4f4;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.link-container button:hover {
+    background-color: #6a6a6a;
+    transform: scale(1.05);
+}
