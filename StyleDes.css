@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("FondDesEtoile.png"); /* Remplace par ton image de fond */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 🌟 Cadre global */
+.des-container {
+    background-color: rgba(29, 37, 59, 0.85); /* ✅ Couleur principale avec opacité */
+    border: 2px solid black; /* ✅ Contour noir */
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    width: 800px;
+    height: 350px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 📜 Partie Gauche : Résultat */
+.resultat-container {
+    background-color: #34436B;
+    border: 2px solid #B0B0B0;
+    border-radius: 10px;
+    padding: 20px;
+    width: 40%;
+    text-align: center;
+    color: white;
+}
+
+.resultat-container h2 {
+    margin-bottom: 10px;
+}
+
+/* 📊 Partie Droite : Sélection Joueur & Caractéristique */
+.selection-container {
+    background-color: #34436B;
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 20px;
+    width: 50%;
+    color: white;
+    text-align: center;
+}
+
+/* 🎭 Style des boutons */
+button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+button:hover {
+    opacity: 0.7;
+}
+
+/* 🟢 Bouton Retour */
+.retour-btn {
+    background-color: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}

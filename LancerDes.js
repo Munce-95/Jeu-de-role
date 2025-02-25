@@ -1,84 +1,67 @@
 const SUPABASE_URL = "https://sxwltroedzxkvqpbcqjc.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zF-wqr95rZ2zA";
-const API_URL = `${SUPABASE_URL}/rest/v1/personnages`;
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zF-wqr95rZ2zA"; // 🔹 Remplace par ta clé API
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// 📌 Charger la liste des joueurs dans le select
-async function chargerJoueurs() {
-    let select = document.getElementById("playerSelect");
+// 🔴 Écouter les nouveaux jets de dés en temps réel
+supabase
+    .channel('public:JetDeDes')
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'JetDeDes' }, (payload) => {
+        console.log("🎲 Nouveau jet reçu :", payload.new);
+        afficherResultat(payload.new);
+    })
+    .subscribe();
 
-    try {
-        const response = await fetch(API_URL, {
-            headers: { 
-                "apikey": SUPABASE_KEY,
-                "Content-Type": "application/json"
-            }
-        });
-
-        const personnages = await response.json();
-        select.innerHTML = "";
-
-        personnages.forEach(personnage => {
-            let option = document.createElement("option");
-            option.value = personnage.ID;
-            option.text = personnage.Nom;
-            select.appendChild(option);
-        });
-
-    } catch (error) {
-        console.error("❌ Erreur lors du chargement des joueurs :", error);
-    }
-}
-
-// 📌 Fonction pour générer un jet de dés (méthode sécurisée)
-function lancementDe() {
-    const randomArray = new Uint32Array(1);
-    crypto.getRandomValues(randomArray);
-    const randomNumber = randomArray[0] % 1000000;
-    const thousands = Math.floor(randomNumber / 1000) % 10;
-    const tens = Math.floor((randomNumber % 100) / 10);
-    return (thousands === 0 && tens === 0) ? 100 : (thousands * 10 + tens);
-}
-
-// 📌 Lancer un dé et comparer avec la caractéristique du joueur
+// 🔹 Fonction pour envoyer un jet de dé à Supabase
 async function lancerDe(caracteristique) {
-    let joueurID = document.getElementById("playerSelect").value;
+    let joueur = document.getElementById("playerSelect").value;
 
-    if (!joueurID) {
-        document.getElementById("resultat").innerText = "⚠️ Sélectionnez un joueur.";
+    if (!joueur) {
+        alert("Sélectionne un joueur !");
         return;
     }
 
-    try {
-        const response = await fetch(`${API_URL}?ID=eq.${joueurID}`, {
-            headers: { 
-                "apikey": SUPABASE_KEY,
-                "Content-Type": "application/json"
-            }
-        });
+    let resultat = Math.floor(Math.random() * 100) + 1; // Simulation d'un d100
 
-        const personnages = await response.json();
-        if (personnages.length === 0) {
-            document.getElementById("resultat").innerText = "❌ Joueur introuvable.";
-            return;
-        }
+    console.log(`🎲 ${joueur} a lancé ${caracteristique} et a obtenu ${resultat}`);
 
-        let personnage = personnages[0];
-        let stat = personnage[caracteristique];
-        let jet = lancementDe();
+    // 🔹 Envoi du jet de dé à Supabase
+    const { data, error } = await supabase
+        .from("JetDeDes")
+        .insert([
+            { Joueur: joueur, Caractéristique: caracteristique, Résultat: resultat }
+        ]);
 
-        let resultatText = `🎲 Jet de ${caracteristique}: ${jet}`;
-        if (jet <= stat) {
-            resultatText += " ✅ Réussite !";
-        } else {
-            resultatText += " ❌ Échec.";
-        }
-
-        document.getElementById("resultat").innerText = resultatText;
-
-    } catch (error) {
-        console.error("❌ Erreur lors du lancer de dé :", error);
+    if (error) {
+        console.error("❌ Erreur lors de l'enregistrement du jet :", error);
+    } else {
+        console.log("✅ Jet enregistré avec succès :", data);
     }
 }
 
-// 📌 Charger les joueurs au chargement de la page
-document.addEventListener("DOMContentLoaded", chargerJoueurs);
+// 🔹 Fonction pour afficher le dernier résultat
+function afficherResultat(jet) {
+    let resultatContainer = document.getElementById("resultat");
+    resultatContainer.innerHTML = `
+        <h3>Résultat du dé pour "<strong>${jet.Caractéristique}</strong>" :</h3>
+        <h2 style="color: gold;">${jet.Résultat}</h2>
+        <p><small>(${jet.Joueur})</small></p>
+    `;
+}
+
+// 🔹 Charger le dernier résultat existant au démarrage
+async function chargerDernierJet() {
+    let { data, error } = await supabase
+        .from("JetDeDes")
+        .select("*")
+        .order("Timestamp", { ascending: false })
+        .limit(1);
+
+    if (error) {
+        console.error("❌ Erreur lors du chargement du dernier jet :", error);
+    } else if (data.length > 0) {
+        afficherResultat(data[0]);
+    }
+}
+
+// 🔹 Charger le dernier résultat au démarrage
+document.addEventListener("DOMContentLoaded", chargerDernierJet);

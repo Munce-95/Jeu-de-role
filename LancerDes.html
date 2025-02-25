@@ -8,21 +8,32 @@
     <link rel="stylesheet" href="StyleDes.css">
 </head>
 <body>
-    <h1>Lancer de Dés</h1>
-    
-    <label for="playerSelect">Choisir un joueur :</label>
-    <select id="playerSelect"></select>
 
-    <h3>Choisir une caractéristique :</h3>
-    <button onclick="lancerDe('Force')">Force</button>
-    <button onclick="lancerDe('Dextérité')">Dextérité</button>
-    <button onclick="lancerDe('Constitution')">Constitution</button>
-    <button onclick="lancerDe('Intelligence')">Intelligence</button>
-    <button onclick="lancerDe('Sagesse')">Sagesse</button>
-    <button onclick="lancerDe('Charisme')">Charisme</button>
+    <div class="des-container">
+        
+        <!-- 📜 Partie Résultat (Gauche) -->
+        <div class="resultat-container">
+            <h2>Résultat :</h2>
+            <h2 id="resultat">--</h2>
+        </div>
 
-    <h2 id="resultat">Résultat :</h2>
+        <!-- 📊 Partie Sélection (Droite) -->
+        <div class="selection-container">
+            <label for="playerSelect">Choisir un joueur :</label>
+            <select id="playerSelect"></select>
 
-    <button onclick="location.href='index.html'">Retour</button>
+            <h3>Choisir une caractéristique :</h3>
+            <button onclick="lancerDe('Force')">Force</button>
+            <button onclick="lancerDe('Dextérité')">Dextérité</button>
+            <button onclick="lancerDe('Constitution')">Constitution</button>
+            <button onclick="lancerDe('Intelligence')">Intelligence</button>
+            <button onclick="lancerDe('Sagesse')">Sagesse</button>
+            <button onclick="lancerDe('Charisme')">Charisme</button>
+        </div>
+
+    </div>
+
+    <button class="retour-btn" onclick="location.href='index.html'">Retour</button>
+
 </body>
 </html>
