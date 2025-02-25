@@ -124,7 +124,7 @@ function afficherResultat(jet) {
 // 🔹 Fonction pour charger l'historique des jets en temps réel
 async function chargerHistorique() {
     try {
-        let data = await fetchSupabase(`${API_JETS}?order=Timestamp.desc&limit=10`);
+        let data = await fetchSupabase(`${API_JETS}?order=created_at.desc&limit=10`);
         afficherHistorique(data);
     } catch (error) {
         console.error("❌ Erreur lors du chargement de l'historique :", error);
