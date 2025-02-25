@@ -11,24 +11,52 @@ supabase
     })
     .subscribe();
 
+async function chargerPersonnages() {
+    let { data, error } = await supabase
+        .from("personnages")
+        .select("ID, Nom")
+        .order("ID", { ascending: true });
+
+    if (error) {
+        console.error("❌ Erreur lors du chargement des personnages :", error);
+        return;
+    }
+
+    console.log("📜 Liste des personnages :", data);
+
+    let select = document.getElementById("playerSelect");
+    select.innerHTML = ""; // 🔹 Vide la liste avant de la remplir
+
+    data.forEach(personnage => {
+        let option = document.createElement("option");
+        option.value = personnage.ID; // 🔹 On garde l'ID comme valeur pour bien cibler en base
+        option.textContent = personnage.Nom; // 🔹 Affiche le nom réel du personnage
+        select.appendChild(option);
+    });
+}
+
+
+
 // 🔹 Fonction pour envoyer un jet de dé à Supabase
 async function lancerDe(caracteristique) {
-    let joueur = document.getElementById("playerSelect").value;
+    let select = document.getElementById("playerSelect");
+    let joueurID = select.value; // 🔹 Récupère l'ID du personnage sélectionné
+    let joueurNom = select.options[select.selectedIndex].text; // 🔹 Récupère son nom
 
-    if (!joueur) {
+    if (!joueurID) {
         alert("Sélectionne un joueur !");
         return;
     }
 
-    let resultat = Math.floor(Math.random() * 100) + 1; // Simulation d'un d100
+    let resultat = Math.floor(Math.random() * 100) + 1; // 🔹 Simulation d'un d100
 
-    console.log(`🎲 ${joueur} a lancé ${caracteristique} et a obtenu ${resultat}`);
+    console.log(`🎲 ${joueurNom} (ID: ${joueurID}) a lancé ${caracteristique} et a obtenu ${resultat}`);
 
-    // 🔹 Envoi du jet de dé à Supabase
+    // 🔹 Envoi du jet de dé à Supabase avec l'ID du personnage
     const { data, error } = await supabase
         .from("JetDeDes")
         .insert([
-            { Joueur: joueur, Caractéristique: caracteristique, Résultat: resultat }
+            { Joueur: joueurNom, Caractéristique: caracteristique, Résultat: resultat }
         ]);
 
     if (error) {
@@ -37,6 +65,7 @@ async function lancerDe(caracteristique) {
         console.log("✅ Jet enregistré avec succès :", data);
     }
 }
+
 
 // 🔹 Fonction pour afficher le dernier résultat
 function afficherResultat(jet) {
@@ -65,3 +94,5 @@ async function chargerDernierJet() {
 
 // 🔹 Charger le dernier résultat au démarrage
 document.addEventListener("DOMContentLoaded", chargerDernierJet);
+// 🔹 Charger la liste au chargement de la page
+document.addEventListener("DOMContentLoaded", chargerPersonnages);
