@@ -2,13 +2,14 @@ const SUPABASE_URL = "https://sxwltroedzxkvqpbcqjc.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN4d2x0cm9lZHp4a3ZxcGJjcWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA0MjQxNzIsImV4cCI6MjA1NjAwMDE3Mn0.F_XIxMSvejY2xLde_LbLcLt564fiW2zF-wqr95rZ2zA";
 const API_URL = `${SUPABASE_URL}/rest/v1/personnages`;
 
+// 📌 Récupérer l'ID du personnage depuis l'URL
 function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
+const playerID = getQueryParam("id"); // 🔹 ID récupéré depuis l'URL
 
-const playerID = getQueryParam("id");
-
+// 📌 Charger les infos du personnage
 async function chargerFichePersonnage() {
     if (!playerID) {
         alert("Aucun personnage sélectionné !");
@@ -24,6 +25,8 @@ async function chargerFichePersonnage() {
         });
 
         const personnages = await response.json();
+        console.log("📦 Données reçues :", personnages);
+
         if (personnages.length === 0) {
             alert("Personnage introuvable !");
             return;
@@ -46,9 +49,10 @@ async function chargerFichePersonnage() {
     }
 }
 
+// 📌 Sauvegarder les modifications avec UPSERT
 async function sauvegarderPersonnage() {
     let personnage = {
-        "ID": playerID,
+        "ID": String(playerID), // 🔹 Forcer l'ID en `TEXT`
         "Nom": document.getElementById("nomPersonnage").value.trim(),
         "Histoire": document.getElementById("histoire").value.trim(),
         "Description": document.getElementById("description").value.trim(),
@@ -60,13 +64,16 @@ async function sauvegarderPersonnage() {
         "Charisme": Number(document.getElementById("charisme").value)
     };
 
+    console.log("📌 Type de playerID :", typeof playerID, playerID);
+    console.log("📌 Données envoyées :", personnage);
+
     try {
         const response = await fetch(API_URL, {
-            method: "POST",
+            method: "POST", // 🔹 On utilise POST + UPSERT
             headers: { 
                 "apikey": SUPABASE_KEY,
                 "Content-Type": "application/json",
-                "Prefer": "resolution=merge" // 🔹 Solution pour éviter le conflit
+                "Prefer": "resolution=merge" // 🔹 Permet de fusionner au lieu de créer un conflit
             },
             body: JSON.stringify(personnage)
         });
@@ -83,5 +90,5 @@ async function sauvegarderPersonnage() {
     }
 }
 
-
+// 📌 Charger la fiche au démarrage
 document.addEventListener("DOMContentLoaded", chargerFichePersonnage);
