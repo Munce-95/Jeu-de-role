@@ -112,6 +112,32 @@ async function chargerHistorique() {
     }
 }
 
+// 🔹 Fonction pour déterminer le type de réussite/échec
+function getResultatClass(resultat, stat) {
+    let cssClass = "invalide";
+    let reussite = "Échec";
+
+    if (resultat === 1) {
+        cssClass = "SupReuCrit";
+        reussite = "Super Réussite Critique";
+    } else if (resultat > 1 && resultat <= 10) {
+        cssClass = "ReuCrit";
+        reussite = "Réussite Critique";
+    } else if (resultat <= stat) {
+        cssClass = "valide";
+        reussite = "Réussite";
+    } else if (resultat >= 90 && resultat < 100) {
+        cssClass = "EchecCrit";
+        reussite = "Échec Critique";
+    } else if (resultat === 100) {
+        cssClass = "SupEchecCrit";
+        reussite = "Super Échec Critique";
+    }
+
+    return { reussite, cssClass };
+}
+
+
 // 🔹 Fonction pour afficher l’historique
 function afficherHistorique(jets) {
     let historiqueContainer = document.getElementById("historique");
