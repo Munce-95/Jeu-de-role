@@ -29,9 +29,13 @@ h1 {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
     grid-gap: 20px;
-    justify-content: center;
+    justify-content: center; /* ✅ Centre horizontalement */
     align-items: center;
+    width: 100%; /* ✅ S'étend sur toute la largeur */
+    max-width: 600px; /* ✅ Évite que les boutons s'étalent trop */
+    margin: 0 auto; /* ✅ Centre l'ensemble */
 }
+
 
 /* 🔴 Style des boutons de fiche */
 #listePersonnages button {
