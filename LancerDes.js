@@ -161,10 +161,15 @@ function afficherHistorique(jets) {
     jets.forEach(jet => {
         let li = document.createElement("li");
         let { reussite, cssClass } = getResultatClass(jet.Résultat, 50); // 50 = valeur par défaut
-        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : <span class="${cssClass}">${jet.Résultat}</span> (${jet.Joueur})`;
+
+        // 🔹 Ajout de "Réussite" ou "Échec" dans l'affichage
+        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : 
+                        <span class="${cssClass}">${jet.Résultat} - ${jet.Issue}</span> 
+                        (${jet.Joueur})`;
         historiqueContainer.appendChild(li);
     });
 }
+
 
 // 🔹 Rafraîchir l'historique toutes les 5 secondes
 setInterval(chargerHistorique, 5000);
