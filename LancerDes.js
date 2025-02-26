@@ -33,6 +33,39 @@ async function chargerPersonnages() {
 }
 document.addEventListener("DOMContentLoaded", chargerPersonnages);
 
+
+// 🔹 Données du jet de dé
+let jetData = {
+    Joueur: joueurNom,
+    Caractéristique: caracteristique,
+    Résultat: resultat,
+    Issue: reussite,
+    created_at: new Date().toISOString() // 🔹 Format correct pour timestamp
+};
+
+// 🔹 Log des données envoyées
+console.log("📤 Données envoyées à Supabase :", JSON.stringify(jetData, null, 2));
+
+// 🔹 Envoi à Supabase
+let response = await fetch(API_HISTORIQUE, {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json",
+        "apikey": SUPABASE_KEY,
+        "Prefer": "return=representation" // 🔹 Permet de voir la réponse exacte de Supabase
+    },
+    body: JSON.stringify(jetData)
+});
+
+// 🔹 Vérification de la réponse
+let responseData = await response.json();
+console.log("✅ Réponse de Supabase :", responseData);
+
+if (responseData.error) {
+    console.error("❌ Erreur lors de l'enregistrement :", responseData.error);
+}
+
+
 // 🔹 Fonction pour lancer un dé
 async function lancerDe(caracteristique) {
     let select = document.getElementById("playerSelect");
