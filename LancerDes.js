@@ -33,39 +33,6 @@ async function chargerPersonnages() {
 }
 document.addEventListener("DOMContentLoaded", chargerPersonnages);
 
-
-// 🔹 Données du jet de dé
-let jetData = {
-    Joueur: joueurNom,
-    Caractéristique: caracteristique,
-    Résultat: resultat,
-    Issue: reussite,
-    created_at: new Date().toISOString() // 🔹 Format correct pour timestamp
-};
-
-// 🔹 Log des données envoyées
-console.log("📤 Données envoyées à Supabase :", JSON.stringify(jetData, null, 2));
-
-// 🔹 Envoi à Supabase
-let response = await fetch(API_HISTORIQUE, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "Prefer": "return=representation" // 🔹 Permet de voir la réponse exacte de Supabase
-    },
-    body: JSON.stringify(jetData)
-});
-
-// 🔹 Vérification de la réponse
-let responseData = await response.json();
-console.log("✅ Réponse de Supabase :", responseData);
-
-if (responseData.error) {
-    console.error("❌ Erreur lors de l'enregistrement :", responseData.error);
-}
-
-
 // 🔹 Fonction pour lancer un dé
 async function lancerDe(caracteristique) {
     let select = document.getElementById("playerSelect");
@@ -99,29 +66,44 @@ async function lancerDe(caracteristique) {
 
         console.log(`🎲 ${joueurNom} (${caracteristique} : ${statJoueur}) → ${resultat} → ${reussite}`);
 
-        // 🔹 Affichage privé
+        // 🔹 Affichage privé du résultat
         document.getElementById("resultat").innerHTML = `
             <h3>Résultat pour "<strong>${caracteristique}</strong>" :</h3>
             <h2 class="${cssClass}">${resultat} - ${reussite}</h2>
         `;
 
-        // 🔹 Envoi dans l’historique partagé
-        await fetch(API_HISTORIQUE, {
+        // 🔹 Préparation des données pour Supabase
+        let jetData = {
+            Joueur: joueurNom,
+            Caractéristique: caracteristique,
+            Résultat: resultat,
+            Issue: reussite,
+            created_at: new Date().toISOString() // 🔹 Format correct pour timestamp
+        };
+
+        console.log("📤 Données envoyées à Supabase :", JSON.stringify(jetData, null, 2));
+
+        // 🔹 Envoi du jet à l'historique Supabase
+        let postResponse = await fetch(API_HISTORIQUE, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "apikey": SUPABASE_KEY
+                "apikey": SUPABASE_KEY,
+                "Prefer": "return=representation"
             },
-            body: JSON.stringify({
-                Joueur: joueurNom,
-                Caractéristique: caracteristique,
-                Résultat: resultat,
-                Issue: reussite
-            })
+            body: JSON.stringify(jetData)
         });
 
-        console.log("✅ Jet ajouté à l’historique !");
-        chargerHistorique(); // 🔹 Rafraîchir l'historique
+        let responseData = await postResponse.json();
+        console.log("✅ Réponse de Supabase :", responseData);
+
+        if (responseData.error) {
+            console.error("❌ Erreur lors de l'enregistrement :", responseData.error);
+        } else {
+            console.log("✅ Jet ajouté à l’historique !");
+            chargerHistorique(); // 🔹 Mise à jour de l'historique
+        }
+
     } catch (error) {
         console.error("❌ Erreur lors du jet :", error);
     }
@@ -170,7 +152,6 @@ function getResultatClass(resultat, stat) {
     return { reussite, cssClass };
 }
 
-
 // 🔹 Fonction pour afficher l’historique
 function afficherHistorique(jets) {
     let historiqueContainer = document.getElementById("historique");
@@ -178,7 +159,8 @@ function afficherHistorique(jets) {
 
     jets.forEach(jet => {
         let li = document.createElement("li");
-        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : <span class="${getResultatClass(jet.Résultat, jet.Caractéristique).cssClass}">${jet.Résultat}</span> (${jet.Joueur})`;
+        let { reussite, cssClass } = getResultatClass(jet.Résultat, 50); // 50 = valeur par défaut
+        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : <span class="${cssClass}">${jet.Résultat}</span> (${jet.Joueur})`;
         historiqueContainer.appendChild(li);
     });
 }
