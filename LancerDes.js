@@ -34,6 +34,20 @@ async function chargerPersonnages() {
 }
 document.addEventListener("DOMContentLoaded", chargerPersonnages);
 
+// 🔹 Fonction de génération de D100 utilisant ton algorithme personnalisé
+function random_roll() {
+    const randomArray = new Uint32Array(1);
+    crypto.getRandomValues(randomArray);
+
+    const randomNumber = randomArray[0] % 1000000;
+
+    const thousands = Math.floor(randomNumber / 1000) % 10;
+    const tens = Math.floor((randomNumber % 100) / 10);
+    const result = (thousands === 0 && tens === 0) ? 100 : (thousands * 10 + tens);
+
+    return result;
+}
+
 // 🔹 Fonction pour lancer un dé
 async function lancerDe(caracteristique) {
     let select = document.getElementById("playerSelect");
@@ -62,7 +76,7 @@ async function lancerDe(caracteristique) {
         }
 
         let statJoueur = data[0][caracteristique];
-        let resultat = Math.floor(Math.random() * 100) + 1;
+        let resultat = random_roll();
         let { reussite, cssClass } = getResultatClass(resultat, statJoueur);
 
         console.log(`🎲 ${joueurNom} (${caracteristique} : ${statJoueur}) → ${resultat} → ${reussite}`);
@@ -112,7 +126,7 @@ async function lancerDe(caracteristique) {
 
 // 🔹 Fonction pour lancer un dé neutre (MJ)
 async function lancerDeNeutre() {
-    let resultat = Math.floor(Math.random() * 100) + 1; // 🎲 Lancer D100
+    let resultat = random_roll(); // 🎲 Lancer D100
 
     console.log(`🎲 Dé 100 lancé → ${resultat}`);
 
@@ -161,7 +175,7 @@ async function lancerDegats() {
         return;
     }
 
-    let resultat = Math.floor(Math.random() * degatsType) + 1; // 🎲 Lancer du dé de dégâts
+    let resultat = Math.floor(Math.random() * degatsType) + 1;
 
     console.log(`🎯 ${joueurNom} a lancé un D${degatsType} → ${resultat} dégâts`);
 
