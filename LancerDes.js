@@ -4,6 +4,7 @@ const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const API_PERSONNAGES = `${SUPABASE_URL}/rest/v1/personnages`;
 const API_HISTORIQUE = `${SUPABASE_URL}/rest/v1/HistoriqueDes`;
 
+
 // 🔹 Fonction pour récupérer les personnages
 async function chargerPersonnages() {
     try {
