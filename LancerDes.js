@@ -110,6 +110,90 @@ async function lancerDe(caracteristique) {
     }
 }
 
+// 🔹 Fonction pour lancer un dé neutre (MJ)
+async function lancerDeNeutre() {
+    let resultat = Math.floor(Math.random() * 100) + 1; // 🎲 Lancer D100
+
+    console.log(`🎲 Dé 100 lancé → ${resultat}`);
+
+    // 🔹 Affichage du jet neutre dans la section Résultat standard
+    document.getElementById("resultat").innerHTML = `
+        <h3>Résultat du Dé pour "<strong>Dé 100</strong>" :</h3>
+        <h2 class="neutre">${resultat}</h2>
+        <p><small>(Maître du Jeu)</small></p>
+    `;
+
+    // 🔹 Enregistrement du jet dans Supabase (anonymisé)
+    await fetch(API_HISTORIQUE, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY
+        },
+        body: JSON.stringify({
+            Joueur: "Maître du Jeu",
+            Caractéristique: "Dé Neutre",
+            Résultat: resultat,
+            Issue: ""
+        })
+    });
+
+    console.log("✅ Jet neutre ajouté à l’historique !");
+    chargerHistorique();
+}
+
+// 🔹 Fonction pour lancer des dégâts
+async function lancerDegats() {
+    let select = document.getElementById("playerSelect");
+    let joueurID = select.value;
+    let joueurNom = select.options[select.selectedIndex].text;
+
+    if (!joueurID) {
+        alert("Sélectionne un joueur !");
+        return;
+    }
+
+    let degatsType = document.getElementById("degatsInput").value;
+    degatsType = parseInt(degatsType, 10);
+
+    if (isNaN(degatsType) || degatsType < 2) {
+        alert("Entre un type de dé valide (ex: 6, 8, 10...) !");
+        return;
+    }
+
+    let resultat = Math.floor(Math.random() * degatsType) + 1; // 🎲 Lancer du dé de dégâts
+
+    console.log(`🎯 ${joueurNom} a lancé un D${degatsType} → ${resultat} dégâts`);
+
+    // 🔹 Affichage dans le cadre des résultats
+    document.getElementById("resultat").innerHTML = `
+        <h3>Résultat pour "<strong>Dégâts (D${degatsType})</strong>" :</h3>
+        <h2 class="degats">${resultat} dégâts</h2>
+        <p><small>(${joueurNom})</small></p>
+    `;
+
+    // 🔹 Enregistrement dans l'historique
+    await fetch(API_HISTORIQUE, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "apikey": SUPABASE_KEY
+        },
+        body: JSON.stringify({
+            Joueur: joueurNom,
+            Caractéristique: `Dégâts (D${degatsType})`,
+            Résultat: resultat,
+            Issue: "Dégâts"
+        })
+    });
+
+    console.log("✅ Jet de dégâts ajouté à l’historique !");
+    chargerHistorique(); // 🔹 Mise à jour de l'historique
+}
+
+
+
+
 // 🔹 Fonction pour charger l’historique
 async function chargerHistorique() {
     try {
@@ -160,15 +244,24 @@ function afficherHistorique(jets) {
 
     jets.forEach(jet => {
         let li = document.createElement("li");
+
+        // Vérifier si c'est un jet de dégâts (on suppose qu'il contient "Dégâts")
+        let isDegats = jet.Caractéristique.includes("Dégâts");
         let { reussite, cssClass } = getResultatClass(jet.Résultat, 50); // 50 = valeur par défaut
 
-        // 🔹 Ajout de "Réussite" ou "Échec" dans l'affichage
-        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : 
-                        <span class="${cssClass}">${jet.Résultat} - ${jet.Issue}</span> 
-                        (${jet.Joueur})`;
+        // Appliquer une classe spéciale pour les dégâts
+        let spanClass = isDegats ? "degats-histo" : cssClass;
+
+        // 🔹 Ajout de "Réussite" ou "Échec" dans l'affichage, avec couleur complète pour les dégâts
+        li.innerHTML = `<span class="${spanClass}"><strong>${jet.Caractéristique}</strong> : 
+                        ${jet.Résultat} - ${jet.Issue} 
+                        (${jet.Joueur})</span>`;
+
         historiqueContainer.appendChild(li);
     });
 }
+
+
 
 
 // 🔹 Rafraîchir l'historique toutes les 5 secondes

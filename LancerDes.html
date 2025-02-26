@@ -36,7 +36,17 @@
             <button onclick="lancerDe('Intelligence')">Intelligence</button>
             <button onclick="lancerDe('Sagesse')">Sagesse</button>
             <button onclick="lancerDe('Charisme')">Charisme</button>
+            <button onclick="lancerDeNeutre()">Dé 100 Neutre</button>
         </div>
+
+        <!-- 🎯 Nouvelle section pour les jets de dégâts -->
+        <div class="degats-container">
+            <h3>Lancer de dégâts</h3>
+            <label for="degatsInput">Choix du dé de dégât :</label>
+            <input type="number" id="degatsInput" min="2" max="100" step="1" value="6">
+            <button onclick="lancerDegats()">Lancer</button>
+        </div>
+
 
     </div>
 

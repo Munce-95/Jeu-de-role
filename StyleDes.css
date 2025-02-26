@@ -139,3 +139,38 @@ button:hover {
 #historique li:last-child {
     border-bottom: none;
 }
+
+/* 🎯 Couleur spéciale pour les dégâts dans l'historique */
+#historique .degats-histo {
+    color: rgb(201, 59, 40);
+    font-weight: bold;
+}
+
+
+
+/* 🎯 Cadre des dégâts */
+.degats-container {
+    background-color: rgba(107, 52, 52, 0.82);
+    border: 3px solid #c0c0c0;
+    color:white;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    width: 300px;
+    margin-top: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* 🎯 Input des dégâts */
+.degats-container input {
+    width: 60px;
+    text-align: center;
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* 🎯 Texte des résultats de dégâts */
+#resultat .degats {
+    color: #f4a500;
+    font-weight: bold;
+}
