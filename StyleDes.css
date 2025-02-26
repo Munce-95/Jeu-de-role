@@ -23,25 +23,21 @@ body {
     padding: 20px;
     display: flex;
     gap: 20px;
-    width: 800px;
-    height: 350px;
+    width: 1000px; /* 📌 Augmenté pour plus d'espace */
+    height: 365px; /* 📌 Augmenté pour éviter les débordements */
     justify-content: space-between;
     align-items: center;
 }
 
 /* 📜 Partie Gauche : Résultat */
-.cssClassat-container {
+.resultat-container {
     background-color: #34436B;
     border: 2px solid #B0B0B0;
     border-radius: 10px;
     padding: 20px;
-    width: 40%;
+    width: 35%;
     text-align: center;
     color: white;
-}
-
-.cssClassat-container h2 {
-    margin-bottom: 10px;
 }
 
 /* 📊 Partie Droite : Sélection Joueur & Caractéristique */
@@ -73,7 +69,10 @@ button:hover {
 
 /* 🟢 Bouton Retour */
 .retour-btn {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.5);
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    font-weight: bold;
     position: absolute;
     top: 20px;
     left: 20px;
@@ -97,30 +96,12 @@ button:hover {
     margin-top: 10px;
 }
 
-
-#resultat .SupEchecCrit {
-    color: rgb(189, 0, 0); /* 🔴 Super Échec Critique */
-}
-
-#resultat .EchecCrit {
-    color: rgb(153, 99, 0); /* 🟠 Échec Critique */
-}
-
-#resultat .invalide {
-    color: #ebc000; /* 🟡 Échec Normal */
-}
-
-#resultat .valide {
-    color: #10b118; /* 🟢 Réussite Normale */
-}
-
-#resultat .ReuCrit {
-    color: #2c8037; /* 🟢 Réussite Critique */
-}
-
-#resultat .SupReuCrit {
-    color: rgb(10, 196, 196); /* 🔵 Super Réussite Critique */
-}
+#resultat .SupEchecCrit { color: rgb(189, 0, 0); } /* 🔴 Super Échec Critique */
+#resultat .EchecCrit { color: rgb(153, 99, 0); } /* 🟠 Échec Critique */
+#resultat .invalide { color: #ebc000; } /* 🟡 Échec Normal */
+#resultat .valide { color: #10b118; } /* 🟢 Réussite Normale */
+#resultat .ReuCrit { color: #2c8037; } /* 🟢 Réussite Critique */
+#resultat .SupReuCrit { color: rgb(10, 196, 196); } /* 🔵 Super Réussite Critique */
 
 /* 📜 Conteneur de l'historique */
 .historique-container {
@@ -132,12 +113,18 @@ button:hover {
     text-align: left;
     margin-top: 20px;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    
+    /* 📌 Pour éviter que l’historique dépasse le cadre */
+    max-height: 300px; /* ✅ Définir une hauteur maximale */
+    overflow-y: auto; /* ✅ Activer le défilement si besoin */
 }
 
 /* 📜 Liste des jets */
 #historique {
     list-style-type: none;
     padding: 0;
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 /* 📜 Élément de la liste */
@@ -151,4 +138,3 @@ button:hover {
 #historique li:last-child {
     border-bottom: none;
 }
-

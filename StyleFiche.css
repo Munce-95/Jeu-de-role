@@ -16,69 +16,76 @@ body {
     align-items: center;
 }
 
-/* 🌟 Conteneur global */
+/* 🌟 Conteneur principal */
 .fiche-container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* 3 Colonnes : Gauche / Centre / Droite */
+    grid-template-columns: 1fr 2fr 1fr; /* 3 Colonnes */
     gap: 20px;
     width: 80%;
     max-width: 1200px;
+    align-items: stretch; /* ✅ Ajuste automatiquement la hauteur */
 }
 
-/* 🎭 Zone de Description (Colonne gauche) */
-.description-container {
-    background-color: rgba(167, 167, 167, 0.82);
-    color: #161616;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-}
-
-.description-container textarea {
-    width: 100%;
-    height: 150px;
-    background: transparent;
-    border: none;
-    color: #161616;
-    font-size: 16px;
-    resize: none;
-}
-
-/* 📜 Zone d'Histoire (Colonne centrale) */
-.histoire-container {
-    background-color: rgba(167, 167, 167, 0.82);
-    color: #161616;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-}
-
-.histoire-container textarea {
-    width: 100%;
-    height: 250px;
-    background: transparent;
-    border: none;
-    color: #161616;
-    font-size: 16px;
-    resize: none;
-}
-
-/* 📊 Zone des statistiques (Colonne droite) */
+/* 📜 Conteneurs uniformisés */
+.description-container,
+.histoire-container,
 .stats-container {
     background-color: rgba(167, 167, 167, 0.82);
-    color: black;
+    color: #161616;
     border-radius: 10px;
     padding: 15px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto; /* ✅ S'adapte à la hauteur max */
+    min-height: 500px; /* ✅ Taille de base ajustée */
 }
 
+/* 📝 Zones de texte (Description & Histoire) */
+.description-container textarea,
+.histoire-container textarea {
+    width: 100%;
+    flex-grow: 1;
+    background: transparent;
+    color: #161616;
+    font-size: 16px;
+    resize: none;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: auto;
+}
+
+/* 📝 Style des champs de texte */
 .stats-container input {
-    width: 60px;
+    width: 100%; /* ✅ Ajusté pour remplir toute la largeur */
+    height: 35px; /* ✅ Conserve la hauteur */
     padding: 5px;
-    margin: 5px 0;
+    margin-bottom: 5px;
     text-align: center;
     font-size: 16px;
+    border: 2px solid #2e2e2e; /* ✅ Ajout d’un contour foncé */
+    border-radius: 8px; /* ✅ Coins arrondis */
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* 📜 Style des labels */
+.stats-container label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+
+/* 🎭 Espacement entre les stats */
+.stats-row {
+    margin-bottom: 10px;
+}
+
 
 /* 🎭 Style du nom */
 h1 {
@@ -91,6 +98,7 @@ h1 {
 /* 🎮 Style des boutons */
 .boutons-container {
     margin-top: 20px;
+    text-align: center;
 }
 
 .boutons-container button {
