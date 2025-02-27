@@ -56,7 +56,7 @@ async function sauvegarderPersonnage() {
         Nom: document.getElementById("nomPersonnage").value,
         Histoire: document.getElementById("histoire").value,
         Description: document.getElementById("description").value,
-        PV: document.getElementById("pv").value, // 🔹 On sauvegarde les PV aussi
+        pv: document.getElementById("pv").value,
         Force: document.getElementById("force").value,
         Dextérité: document.getElementById("dexterite").value,
         Constitution: document.getElementById("constitution").value,
