@@ -263,13 +263,13 @@ function afficherHistorique(jets) {
         let isDegats = jet.Caractéristique.includes("Dégâts");
         let { reussite, cssClass } = getResultatClass(jet.Résultat, 50); // 50 = valeur par défaut
 
-        // Appliquer une classe spéciale pour les dégâts
+        // Définir la classe utilisée pour le résultat et l'issue
         let spanClass = isDegats ? "degats-histo" : cssClass;
 
-        // 🔹 Ajout de "Réussite" ou "Échec" dans l'affichage, avec couleur complète pour les dégâts
-        li.innerHTML = `<span class="${spanClass}"><strong>${jet.Caractéristique}</strong> : 
-                        ${jet.Résultat} - <span class="${cssClass}">${jet.Issue}</span><br>
-                        (${jet.Joueur})</span>`;
+        // 🔹 Appliquer la même classe CSS à Résultat + Issue
+        li.innerHTML = `<strong>${jet.Caractéristique}</strong> : 
+                        <span class="${spanClass}">${jet.Résultat} - ${jet.Issue}</span><br>
+                        <span>(${jet.Joueur})</span>`;
 
         historiqueContainer.appendChild(li);
     });
