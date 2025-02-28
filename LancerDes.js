@@ -268,7 +268,7 @@ function afficherHistorique(jets) {
 
         // 🔹 Ajout de "Réussite" ou "Échec" dans l'affichage, avec couleur complète pour les dégâts
         li.innerHTML = `<span class="${spanClass}"><strong>${jet.Caractéristique}</strong> : 
-                        ${jet.Résultat} - ${jet.Issue} 
+                        ${jet.Résultat} - <span class="${cssClass}">${jet.Issue}</span><br>
                         (${jet.Joueur})</span>`;
 
         historiqueContainer.appendChild(li);
