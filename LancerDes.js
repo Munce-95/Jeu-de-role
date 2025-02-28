@@ -126,6 +126,9 @@ async function lancerDe(caracteristique) {
 
 // 🔹 Fonction pour lancer un dé neutre (MJ)
 async function lancerDeNeutre() {
+    let select = document.getElementById("playerSelect");
+    let joueurID = select.value;
+    let joueurNom = select.options[select.selectedIndex].text;
     let resultat = random_roll(); // 🎲 Lancer D100
 
     console.log(`🎲 Dé 100 lancé → ${resultat}`);
@@ -134,7 +137,7 @@ async function lancerDeNeutre() {
     document.getElementById("resultat").innerHTML = `
         <h3>Résultat du Dé pour "<strong>Dé 100</strong>" :</h3>
         <h2 class="neutre">${resultat}</h2>
-        <p><small>(Maître du Jeu)</small></p>
+        <p><small>${joueurNom}</small></p>
     `;
 
     // 🔹 Enregistrement du jet dans Supabase (anonymisé)
@@ -148,7 +151,7 @@ async function lancerDeNeutre() {
             Joueur: joueurNom,
             Caractéristique: "Dé Neutre",
             Résultat: resultat,
-            Issue: ""
+            Issue: "-------------"
         })
     });
 
@@ -225,6 +228,30 @@ async function chargerHistorique() {
         console.error("❌ Erreur chargement historique :", error);
     }
 }
+
+async function resetHistorique() {
+    try {
+        let response = await fetch(`${API_HISTORIQUE}?created_at=not.is.null`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "apikey": SUPABASE_KEY
+            }
+        });
+
+        if (!response.ok) {
+            let errorData = await response.json();
+            console.error("❌ Erreur lors de la réinitialisation :", errorData);
+            return;
+        }
+
+        console.log("✅ Historique réinitialisé avec succès !");
+        chargerHistorique(); // 🔄 Mettre à jour l'affichage après suppression
+    } catch (error) {
+        console.error("❌ Erreur réseau :", error);
+    }
+}
+
 
 // 🔹 Fonction pour déterminer le type de réussite/échec
 function getResultatClass(resultat, stat) {
