@@ -83,7 +83,7 @@ async function lancerDe(caracteristique) {
 
         // 🔹 Affichage privé du résultat
         document.getElementById("resultat").innerHTML = `
-            <h3>Résultat pour "<strong>${caracteristique}</strong>" :</h3>
+            <h3>Lancer pour <br>"<strong>${caracteristique}</strong>" :</h3>
             <h2 class="${cssClass}">${resultat} - ${reussite}</h2>
         `;
 
@@ -135,9 +135,8 @@ async function lancerDeNeutre() {
 
     // 🔹 Affichage du jet neutre dans la section Résultat standard
     document.getElementById("resultat").innerHTML = `
-        <h3>Résultat du Dé pour "<strong>Dé 100</strong>" :</h3>
+        <h3>Lancer du "<strong>Dé 100</strong>" :</h3>
         <h2 class="neutre">${resultat}</h2>
-        <p><small>${joueurNom}</small></p>
     `;
 
     // 🔹 Enregistrement du jet dans Supabase (anonymisé)
@@ -235,7 +234,8 @@ async function resetHistorique() {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
-                "apikey": SUPABASE_KEY
+                "apikey": SUPABASE_KEY,
+                "Prefer": "return=minimal" // ✅ Permet d'éviter un retour inutile
             }
         });
 
@@ -251,6 +251,7 @@ async function resetHistorique() {
         console.error("❌ Erreur réseau :", error);
     }
 }
+
 
 
 // 🔹 Fonction pour déterminer le type de réussite/échec
