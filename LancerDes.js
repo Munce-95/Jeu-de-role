@@ -268,7 +268,7 @@ function afficherHistorique(jets) {
 
         // 🔹 Appliquer la même classe CSS à Résultat + Issue
         li.innerHTML = `<strong>${jet.Caractéristique}</strong> : 
-                        <span class="${spanClass}">${jet.Résultat} - ${jet.Issue}</span><br>
+                        <span class="${spanClass}">${jet.Résultat}<br>${jet.Issue}</span><br>
                         <span>(${jet.Joueur})</span>`;
 
         historiqueContainer.appendChild(li);
