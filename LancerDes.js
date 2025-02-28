@@ -145,7 +145,7 @@ async function lancerDeNeutre() {
             "apikey": SUPABASE_KEY
         },
         body: JSON.stringify({
-            Joueur: "Maître du Jeu",
+            Joueur: joueurNom,
             Caractéristique: "Dé Neutre",
             Résultat: resultat,
             Issue: ""
