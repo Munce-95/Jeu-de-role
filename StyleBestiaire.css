@@ -5,26 +5,44 @@
 }
 
 body {
-    background-image: url("ForetLugubre.png"); /* Remplace par ton image */
+    background-image: url("ForetLugubre.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
+    color: white;
+    font-family: "Georgia", serif;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
+    height: 100vh;
+}
+
+/* 🌟 Style du titre */
+h1 {
+    color: #f4f4f4;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 32px;
+}
+
+/* 📜 Conteneur du bestiaire */
+.bestiaire-container {
+    background-color: rgba(30, 30, 30, 0.85);
+    border: 3px solid #5a4d41;
+    border-radius: 15px;
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-/* 🎨 Style du titre */
-h1 {
-    color: #f4f4f4;
-    text-shadow: 3px 3px 5px #0d0d3a;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* 🌟 Liste des créatures */
+/* 📜 Liste des créatures */
 #listeCreatures {
     display: grid;
     grid-template-columns: 1fr; /* Colonnes dynamiques */
@@ -35,6 +53,7 @@ h1 {
     margin: 0 auto;
 }
 
+/* 📌 Conteneur des boutons */
 #case-bouton {
     background-color: rgba(92, 67, 38, 0.82);
     padding: 15px;
@@ -52,12 +71,15 @@ h1 {
     padding: 15px 40px;
     font-size: 18px;
     width: 100%;
+    max-width: 350px; /* ✅ Largeur fixe maximale */
+    min-width: 300px; /* ✅ Largeur minimale pour afficher ~25 caractères */
     text-align: center;
     cursor: pointer;
     transition: opacity 0.3s ease-in-out;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    white-space: nowrap; /* ✅ Empêche le texte de passer à la ligne */
 }
 
 /* 🔹 Effet hover sur les boutons */
@@ -65,7 +87,7 @@ h1 {
     opacity: 0.6;
 }
 
-/* 🟢 Bouton d'ajout */
+/* 🐉 Bouton d'ajout de créature */
 .ajouter-creature {
     background-color: rgba(223, 177, 124, 0.82);
     border-radius: 10px;
@@ -83,20 +105,22 @@ h1 {
 }
 
 /* 🔼 Bouton retour */
-button[onclick*="index.html"] {
-    background-color: rgba(167, 167, 167, 0.82);
+.retour-btn {
+    background: linear-gradient(to bottom, #5a4d41, #3e342b);
     color: #f4f4f4;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 30px;
+    border: 2px solid #8a6e4f;
+    padding: 10px 25px;
     font-size: 16px;
+    border-radius: 8px;
     position: absolute;
     top: 20px;
     left: 20px;
     cursor: pointer;
-    transition: opacity 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    font-weight: bold;
 }
 
-button[onclick*="index.html"]:hover {
-    opacity: 0.6;
+.retour-btn:hover {
+    background: linear-gradient(to bottom, #8a6e4f, #5a4d41);
+    transform: scale(1.05);
 }
