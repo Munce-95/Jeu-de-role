@@ -52,6 +52,8 @@ h1 {
     padding: 15px 40px;
     font-size: 18px;
     width: 100%;
+    max-width: 350px; /* ✅ Largeur fixe maximale */
+    min-width: 300px; /* ✅ Largeur minimale pour afficher ~25 caractères */
     text-align: center;
     cursor: pointer;
     transition: opacity 0.3s ease-in-out;
