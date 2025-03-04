@@ -6,10 +6,9 @@
 
 body {
     background-image: url("stone_wall.png"); /* Remplace par le bon fichier */
-    background-size: cover;
+    background-size: cover; /* Pose soucis à Zevra et Kahly */
     background-position: center;
     background-repeat: no-repeat;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

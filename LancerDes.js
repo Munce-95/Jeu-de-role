@@ -307,5 +307,5 @@ function afficherHistorique(jets) {
 
 
 // 🔹 Rafraîchir l'historique toutes les 5 secondes
-setInterval(chargerHistorique, 5000);
+setInterval(chargerHistorique, 1000);
 document.addEventListener("DOMContentLoaded", chargerHistorique);
