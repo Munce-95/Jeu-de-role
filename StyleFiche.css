@@ -5,8 +5,8 @@
 }
 
 body {
-    background-image: url("stone_wall.png"); /* Remplace par le bon fichier */
-    background-size: cover; /* Pose soucis à Zevra et Kahly */
+    background-image: url("stone_wall.png");
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
@@ -18,11 +18,11 @@ body {
 /* 🌟 Conteneur principal */
 .fiche-container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* 3 Colonnes */
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 20px;
     width: 80%;
     max-width: 1200px;
-    align-items: stretch; /* ✅ Ajuste automatiquement la hauteur */
+    align-items: stretch;
 }
 
 /* 📜 Conteneurs uniformisés */
