@@ -84,7 +84,7 @@ async function lancerDe(caracteristique) {
         // 🔹 Affichage privé du résultat
         document.getElementById("resultat").innerHTML = `
             <h3>Lancer pour <br>"<strong>${caracteristique}</strong>" :</h3>
-            <h2 class="${cssClass}">${resultat} - ${reussite}</h2>
+            <h2 class="${cssClass}">${resultat} : ${reussite}</h2>
         `;
 
         // 🔹 Préparation des données pour Supabase
@@ -185,7 +185,6 @@ async function lancerDegats() {
     document.getElementById("resultat").innerHTML = `
         <h3>Résultat pour "<strong>Dégâts (D${degatsType})</strong>" :</h3>
         <h2 class="degats">${resultat} dégâts</h2>
-        <p><small>(${joueurNom})</small></p>
     `;
 
     // 🔹 Enregistrement dans l'historique
@@ -204,7 +203,7 @@ async function lancerDegats() {
     });
 
     console.log("✅ Jet de dégâts ajouté à l’historique !");
-    chargerHistorique(); // 🔹 Mise à jour de l'historique
+    chargerHistorique();
 }
 
 
@@ -246,7 +245,7 @@ async function resetHistorique() {
         }
 
         console.log("✅ Historique réinitialisé avec succès !");
-        chargerHistorique(); // 🔄 Mettre à jour l'affichage après suppression
+        chargerHistorique();
     } catch (error) {
         console.error("❌ Erreur réseau :", error);
     }
@@ -261,19 +260,19 @@ function getResultatClass(resultat, stat) {
 
     if (resultat === 1) {
         cssClass = "SupReuCrit";
-        reussite = "Super Réussite Critique";
+        reussite = "Super<br>Réussite Critique";
     } else if (resultat > 1 && resultat <= 10) {
         cssClass = "ReuCrit";
-        reussite = "Réussite Critique";
+        reussite = "Réussite<br>Critique";
     } else if (resultat <= stat) {
         cssClass = "valide";
         reussite = "Réussite";
     } else if (resultat >= 90 && resultat < 100) {
         cssClass = "EchecCrit";
-        reussite = "Échec Critique";
+        reussite = "Échec<br>Critique";
     } else if (resultat === 100) {
         cssClass = "SupEchecCrit";
-        reussite = "Super Échec Critique";
+        reussite = "Super<br>Échec Critique";
     }
 
     return { reussite, cssClass };

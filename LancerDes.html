@@ -11,24 +11,6 @@
 <body>
 
     <div class="des-container">
-        
-        <!-- 📜 Partie Résultat (Gauche) -->
-        <div class="resultat-container">
-            <h2>Résultat :</h2>
-            <h2 id="resultat">--</h2>
-        </div>
-
-        <!-- 📜 Historique des jets -->
-        <div class="historique-container">
-                <h2>Historique des Jets</h2>
-                <ul id="historique"></ul>
-                <div class="historique-reset">
-                    <ul id="historique"></ul>
-                    <p class="reset-histo-text" onclick="resetHistorique()">Réinitialiser l'historique</p>
-                </div>
-        </div>
-        
-        
 
         <!-- 📊 Partie Sélection (Droite) -->
         <div class="selection-container">
@@ -43,18 +25,38 @@
             <button onclick="lancerDe('Sagesse')">Sagesse</button>
             <button onclick="lancerDe('Charisme')">Charisme</button>
             <button onclick="lancerDeNeutre()">Dé 100 Neutre</button>
-           
         </div>
 
-         <!-- 🎯 Nouvelle section pour les jets de dégâts -->
-         <div class="degats-container">
-            <h3>Lancer de dégâts</h3>
-            <label for="degatsInput">Choix du dé de dégât :</label>
-            <input type="number" id="degatsInput" min="2" max="100" step="1" value="6">
-            <button onclick="lancerDegats()">Lancer</button>
+        <div id="box-degat-result">
+            <!-- 🎯 Nouvelle section pour les jets de dégâts -->
+            <div id="degats-container">
+                <h3>Lancer de dégâts</h3>
+                <label for="degatsInput">Choix du dé de dégât :</label>
+                <input type="number" id="degatsInput" min="2" max="100" step="1" value="6">
+                <button onclick="lancerDegats()">Lancer</button>
+            </div>
+
+            <!-- 📜 Partie Résultat (Gauche) -->
+            <div id="resultat-container">
+                <h2>Résultat :</h2>
+                <h2 id="resultat">--</h2>
+            </div>
         </div>
 
 
+        <!-- 📜 Historique des jets -->
+        <div class="historique-container">
+                <h2>Historique des Jets</h2>
+                <ul id="historique"></ul>
+                <div class="historique-reset">
+                    <ul id="historique"></ul>
+                    <p class="reset-histo-text" onclick="resetHistorique()">Réinitialiser l'historique</p>
+                </div>
+        </div>
+        
+        
+
+        
     </div>
 
     <button class="retour-btn" onclick="location.href='index.html'">Retour</button>
